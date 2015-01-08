@@ -1,0 +1,398 @@
+<div id="form_wrapper_email">
+    <p id="notice"><%= notice %></p>
+    <div class="row">
+        <div class="twelve columns">
+            <div class="four coulmns ">
+                <h1><%= @place.title %></h1>
+                <%= @place.categories %>
+            </div>
+            <div class="four columns">
+                <%= image_tag @place.image_url(:thumb) if @place.image? %>
+                <table>
+                    <tr>
+                        <td>Address </td>
+                        <td><%= @place.address %></td>
+                    </tr>
+                    <tr>
+                        <td>Phone </td>
+                        <td><%= @place.phone%></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><%= @place.email%></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="eight columns">
+                <dl class="tabs">
+                    <dd class="active"><a href="#">Overall</a></dd>
+                    <dd><a href="#">Mountain</a></dd>
+                    <dd><a href="#">Terrain</a></dd>
+                    <dd><a href="#">Park</a></dd>
+                    <dd><a href="#">Lift</a></dd>
+                    <dd><a href="#">Price</a></dd>
+                    <dd><a href="#">Map</a></dd>
+                </dl>
+                <ul class="tabs-content">
+                    <li class="active">
+                </ul>
+            </div>
+        </div>
+    
+
+    <p>
+      <b>Address:</b>
+      <%= @place.address %>
+    
+
+    <p>
+      <b>Categories:</b>
+      <%= @place.categories %>
+    </p>
+
+    <p>
+      <b>Title:</b>
+      <%= @place.title %>
+    </p>
+
+    <p>
+      <b>Discription:</b>
+      <%= @place.discription %>
+    </p>
+
+    <p>
+      <b>Rate:</b>
+      <%= @place.rate %>
+    </p>
+
+    <p>
+      <b>Url:</b>
+      <%= @place.url %>
+    </p>
+
+    <p>
+      <b>Open hr:</b>
+      <%= @place.open_hr %>
+    </p>
+
+    <p>
+      <b>Close hr:</b>
+      <%= @place.close_hr %>
+    </p>
+
+    <p>
+      <b>Sell:</b>
+      <%= @place.sell %>
+    </p>
+
+    <p>
+      <b>Repaire:</b>
+      <%= @place.repaire %>
+    </p>
+
+    <p>
+      <b>Maintainance:</b>
+      <%= @place.maintainance %>
+    </p>
+
+    <p>
+      <b>Ave snow fall:</b>
+      <%= @place.ave_snow_fall %>
+    </p>
+
+    <p>
+      <b>Top elevation:</b>
+      <%= @place.top_elevation %>
+    </p>
+
+    <p>
+      <b>Base elevation:</b>
+      <%= @place.base_elevation %>
+    </p>
+
+    <p>
+      <b>Rideable acres:</b>
+      <%= @place.rideable_acres %>
+    </p>
+
+    <p>
+      <b>Lifts:</b>
+      <%= @place.lifts %>
+    </p>
+
+    <p>
+      <b>Open lifts:</b>
+      <%= @place.open_lifts %>
+    </p>
+
+    <p>
+      <b>Close lifts:</b>
+      <%= @place.close_lifts %>
+    </p>
+
+    <p>
+      <b>Open lift time:</b>
+      <%= @place.open_lift_time %>
+    </p>
+
+    <p>
+      <b>Close lift time:</b>
+      <%= @place.close_lift_time %>
+    </p>
+
+    <p>
+      <b>Trails:</b>
+      <%= @place.trails %>
+    </p>
+
+    <p>
+      <b>Longest run:</b>
+      <%= @place.longest_run %>
+    </p>
+
+    <p>
+      <b>Terrain beginner:</b>
+      <%= @place.terrain_beginner %>
+    </p>
+
+    <p>
+      <b>Terrain intermid:</b>
+      <%= @place.terrain_intermid %>
+    </p>
+
+    <p>
+      <b>Terrain advance:</b>
+      <%= @place.terrain_advance %>
+    </p>
+
+    <p>
+      <b>Terrain expert:</b>
+      <%= @place.terrain_expert %>
+    </p>
+
+    <p>
+      <b>Snowmaking:</b>
+      <%= @place.snowmaking %>
+    </p>
+
+    <p>
+      <b>Trail map:</b>
+      <%= @place.trail_map %>
+      <%= image_tag @place.trail_map_url(:show) if @place.trail_map? %>
+      
+    </p>
+
+    <p>
+      <b>Base snow:</b>
+      <%= @place.base_snow %>
+    </p>
+
+    <p>
+      <b>Strome total:</b>
+      <%= @place.strome_total %>
+    </p>
+
+    <p>
+      <b>Terrain park:</b>
+      <%= @place.terrain_park %>
+    </p>
+
+    <p>
+      <b>Terrain park lv:</b>
+      <%= @place.terrain_park_lv %>
+    </p>
+
+    <p>
+      <b>Rail:</b>
+      <%= @place.rail %>
+    </p>
+
+    <p>
+      <b>Box:</b>
+      <%= @place.box %>
+    </p>
+
+    <p>
+      <b>Table top:</b>
+      <%= @place.table_top %>
+    </p>
+
+    <p>
+      <b>Trees:</b>
+      <%= @place.trees %>
+    </p>
+
+    <p>
+      <b>Park bench picnic table:</b>
+      <%= @place.park_bench_picnic_table %>
+    </p>
+
+    <p>
+      <b>Mail box:</b>
+      <%= @place.mail_box %>
+    </p>
+
+    <p>
+      <b>Wall ride:</b>
+      <%= @place.wall_ride %>
+    </p>
+
+    <p>
+      <b>Barrels:</b>
+      <%= @place.barrels %>
+    </p>
+
+    <p>
+      <b>Rainbow:</b>
+      <%= @place.rainbow %>
+    </p>
+
+    <p>
+      <b>Tabletop:</b>
+      <%= @place.tabletop %>
+    </p>
+
+    <p>
+      <b>Step down:</b>
+      <%= @place.step_down %>
+    </p>
+
+    <p>
+      <b>Step up:</b>
+      <%= @place.step_up %>
+    </p>
+
+    <p>
+      <b>Gap:</b>
+      <%= @place.gap %>
+    </p>
+
+    <p>
+      <b>Hip:</b>
+      <%= @place.hip %>
+    </p>
+
+    <p>
+      <b>Spine:</b>
+      <%= @place.spine %>
+    </p>
+
+    <p>
+      <b>Super kicker:</b>
+      <%= @place.super_kicker %>
+    </p>
+
+    <p>
+      <b>Mini kicker:</b>
+      <%= @place.mini_kicker %>
+    </p>
+
+    <p>
+      <b>Channel gap:</b>
+      <%= @place.channel_gap %>
+    </p>
+
+    <p>
+      <b>Half pipe:</b>
+      <%= @place.half_pipe %>
+    </p>
+
+    <p>
+      <b>Quater pipe:</b>
+      <%= @place.quater_pipe %>
+    </p>
+
+    <p>
+      <b>Air bag:</b>
+      <%= @place.air_bag %>
+    </p>
+
+    <p>
+      <b>Day ticket adult:</b>
+      <%= @place.day_ticket_adult %>
+    </p>
+
+    <p>
+      <b>Day ticket adult hr:</b>
+      <%= @place.day_ticket_adult_hr %>
+    </p>
+
+    <p>
+      <b>Night ticket adult:</b>
+      <%= @place.night_ticket_adult %>
+    </p>
+
+    <p>
+      <b>Night ticket adult hr:</b>
+      <%= @place.night_ticket_adult_hr %>
+    </p>
+
+    <p>
+      <b>Day ticket teen:</b>
+      <%= @place.day_ticket_teen %>
+    </p>
+
+    <p>
+      <b>Day ticket teen hr:</b>
+      <%= @place.day_ticket_teen_hr %>
+    </p>
+
+    <p>
+      <b>Night ticket teen:</b>
+      <%= @place.night_ticket_teen %>
+    </p>
+
+    <p>
+      <b>Night ticket teen hr:</b>
+      <%= @place.night_ticket_teen_hr %>
+    </p>
+
+    <p>
+      <b>Day ticket child:</b>
+      <%= @place.day_ticket_child %>
+    </p>
+
+    <p>
+      <b>Day ticket child hr:</b>
+      <%= @place.day_ticket_child_hr %>
+    </p>
+
+    <p>
+      <b>Night ticket child:</b>
+      <%= @place.night_ticket_child %>
+    </p>
+
+    <p>
+      <b>Night ticket child hr:</b>
+      <%= @place.night_ticket_child_hr %>
+    </p>
+
+    <p>
+      <b>Holiday:</b>
+      <%= @place.holiday %>
+    </p>
+
+    <p>
+      <b>Note:</b>
+      <%= @place.note %>
+    </p>
+
+    <p>
+      <b>Wifi:</b>
+      <%= @place.wifi %>
+    </p>
+
+    <p>
+      <b>Cell:</b>
+      <%= @place.cell %>
+    </p>
+
+    <p>
+      <b>Rental gear:</b>
+      <%= @place.rental_gear %>
+    </p>
+
+
+    <%= link_to 'Edit', edit_place_path(@place) %> |
+    <%= link_to 'Back', places_path %>
+</div>

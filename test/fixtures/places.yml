@@ -1,0 +1,151 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  place_id: 1
+  address: MyString
+  latitude: 1.5
+  longtitude: 1.5
+  categories: MyString
+  title: MyString
+  discription: MyText
+  rate: 1
+  url: MyString
+  open_hr: 2012-07-30 11:16:46
+  close_hr: 2012-07-30 11:16:46
+  sell: false
+  repaire: false
+  maintainance: false
+  ave_snow_fall: 1
+  top_elevation: 1
+  base_elevation: 1
+  rideable_acres: 1
+  lifts: 1
+  open_lifts: 1
+  close_lifts: 1
+  open_lift_time: 2012-07-30 11:16:46
+  close_lift_time: 2012-07-30 11:16:46
+  trails: 1
+  longest_run: 1
+  terrain_beginner: 1
+  terrain_intermid: 1
+  terrain_advance: 1
+  terrain_expert: 1
+  snowmaking: false
+  trail_map: MyString
+  base_snow: 1
+  strome_total: 1
+  terrain_park: false
+  terrain_park_lv: 1
+  rail: false
+  box: false
+  table_top: false
+  trees: false
+  park_bench_picnic_table: false
+  mail_box: false
+  wall_ride: false
+  barrels: false
+  rainbow: false
+  tabletop: false
+  step_down: false
+  step_up: false
+  gap: false
+  hip: false
+  spine: false
+  super_kicker: false
+  mini_kicker: false
+  channel_gap: false
+  half_pipe: false
+  quater_pipe: false
+  air_bag: false
+  day_ticket_adult: 1
+  day_ticket_adult_hr: 1
+  night_ticket_adult: 1
+  night_ticket_adult_hr: 1
+  day_ticket_teen: 1
+  day_ticket_teen_hr: 1
+  night_ticket_teen: 1
+  night_ticket_teen_hr: 1
+  day_ticket_child: 1
+  day_ticket_child_hr: 1
+  night_ticket_child: 1
+  night_ticket_child_hr: 1
+  holiday: 2012-07-30 11:16:46
+  note: MyText
+  wifi: false
+  cell: MyString
+  rental_gear: false
+
+two:
+  place_id: 1
+  address: MyString
+  latitude: 1.5
+  longtitude: 1.5
+  categories: MyString
+  title: MyString
+  discription: MyText
+  rate: 1
+  url: MyString
+  open_hr: 2012-07-30 11:16:46
+  close_hr: 2012-07-30 11:16:46
+  sell: false
+  repaire: false
+  maintainance: false
+  ave_snow_fall: 1
+  top_elevation: 1
+  base_elevation: 1
+  rideable_acres: 1
+  lifts: 1
+  open_lifts: 1
+  close_lifts: 1
+  open_lift_time: 2012-07-30 11:16:46
+  close_lift_time: 2012-07-30 11:16:46
+  trails: 1
+  longest_run: 1
+  terrain_beginner: 1
+  terrain_intermid: 1
+  terrain_advance: 1
+  terrain_expert: 1
+  snowmaking: false
+  trail_map: MyString
+  base_snow: 1
+  strome_total: 1
+  terrain_park: false
+  terrain_park_lv: 1
+  rail: false
+  box: false
+  table_top: false
+  trees: false
+  park_bench_picnic_table: false
+  mail_box: false
+  wall_ride: false
+  barrels: false
+  rainbow: false
+  tabletop: false
+  step_down: false
+  step_up: false
+  gap: false
+  hip: false
+  spine: false
+  super_kicker: false
+  mini_kicker: false
+  channel_gap: false
+  half_pipe: false
+  quater_pipe: false
+  air_bag: false
+  day_ticket_adult: 1
+  day_ticket_adult_hr: 1
+  night_ticket_adult: 1
+  night_ticket_adult_hr: 1
+  day_ticket_teen: 1
+  day_ticket_teen_hr: 1
+  night_ticket_teen: 1
+  night_ticket_teen_hr: 1
+  day_ticket_child: 1
+  day_ticket_child_hr: 1
+  night_ticket_child: 1
+  night_ticket_child_hr: 1
+  holiday: 2012-07-30 11:16:46
+  note: MyText
+  wifi: false
+  cell: MyString
+  rental_gear: false

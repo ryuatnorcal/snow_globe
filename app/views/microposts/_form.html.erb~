@@ -1,0 +1,14 @@
+
+<h6 class="black_bk white_font tenpx-padding">What's </h6>
+<%= form_for(@micropost) do |f| %>
+
+    <%= f.text_area :posts, :size => "5x5" %>
+    <div id="fakey">
+        <div id="fake_button" class="button small">Pick Pic</div>
+        <div class="file"><%= f.file_field :image%></div>        
+    </div>
+    <div class="">
+        <%= f.submit "Post", :class=>"button small" %>
+        <spam class="close button small">Cancel</spam>
+    </div>
+<% end %>

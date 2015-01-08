@@ -1,0 +1,37 @@
+<div id="form_wrapper_email">
+<h1>Listing meetup_rsvps</h1>
+
+<table>
+  <tr>
+  	<th>RSVP ID </th>
+    <th>Event</th>
+    <th>User</th>
+    <th>Rsvp</th>
+    <th>Attend</th>
+    <th>Comment</th>
+    <th>username</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @meetup_rsvps.each do |meetup_rsvp| %>
+  <tr>
+  	<td><%= meetup_rsvp.id %></td>
+    <td><%= meetup_rsvp.event_id %></td>
+    <td><%= meetup_rsvp.user_id %></td>
+    <td><%= meetup_rsvp.rsvp %></td>
+    <td><%= meetup_rsvp.attend %></td>
+    <td><%= meetup_rsvp.comment %></td>
+    <td><%= meetup_rsvp.username%></td>
+    <td><%= link_to 'Show', meetup_rsvp %></td>
+    <td><%= link_to 'Edit', edit_meetup_rsvp_path(meetup_rsvp) %></td>
+    <td><%= link_to 'Destroy', meetup_rsvp, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Meetup rsvp', new_meetup_rsvp_path %>
+</div>

@@ -1,0 +1,18 @@
+<div class="wrapper">
+	<% MeetupProfile.find(:all).each do |meetup_profile| %>
+	  <div class="flex-cube rounded-corner white-bk">
+	  <h5 class="black_bk white_font tenpx-padding"><%= meetup_profile.groupname %></h5>
+	  <%= image_tag meetup_profile.image_url(:thumb) if meetup_profile.image? %>
+		Group ID :<%= meetup_profile.id %><br />
+		Group ID :<%= meetup_profile.group_id %><br />
+		<%= meetup_profile.members %> Members<br />
+		<%= meetup_profile.member_names %>
+		Organizer: <%= link_to meetup_profile.organaizer_username,profile_path(meetup_profile.organaizer_id) %><br />
+		<spam class="button small white_font"><%= link_to 'Detail', meetup_profile %></spam>
+		<%if current_user.id == 4%>
+		    <%= link_to 'Edit', edit_meetup_profile_path(meetup_profile) %>
+		    <%= link_to 'Delete', meetup_profile, confirm: 'Are you sure?', method: :delete %>
+	    <%end%>
+	  </div>
+	<% end %>
+</div>

@@ -1,0 +1,145 @@
+<div id="form_wrapper_email">
+<p id="notice"><%= notice %></p>
+<div id="popup_contents" class="rounded-corner"><%= render 'meetups/form'%></div>
+    <div class="row">
+        <div class="four columns">
+        <% if @meetup_profile.organaizer_id == current_user.id || @meetup_profile.coorganaizer_id == current_user.id%>
+	    <div class="post_new button">Create New Trip</div>
+		<!--<%= link_to 'Create New Trip', {:controller => "meetups", :action=>"new",:group_id => @meetup_profile.id, :groupname =>@meetup_profile.groupname }%>|-->
+		<%= @meetup_profile.group_id %>
+	<%end%>
+            <%= image_tag @meetup_profile.image_url(:show) if @meetup_profile.image? %>
+            
+            <table>
+                <tr>
+                    <td>Group </td>
+                    <td><%= @meetup_profile.groupname%></td>
+                <tr>
+                <tr>
+		            <td>Organaizer Name : </td>
+		            <td><%= @meetup_profile.organaizer_username%></td>
+                </tr>
+                <tr>
+                    <td>URL:</td>
+                    <td></td>
+                </tr>
+            </table>
+            <% if GroupMembership.where(:user_id=>current_user.id,:group_id=>@meetup_profile.id).blank?%>
+            <%= link_to "Join", {:controller => "group_memberships",:action=>'create', :group_id => @meetup_profile.id,:user_id=>current_user.id }, :method=>'post'%>
+        <%else%>
+            <% @id = GroupMembership.find(:first,:conditions=>{:user_id=>current_user.id,:group_id=>@meetup_profile.id}) %>
+            <%= link_to "Leave the Group", group_membership_path(@id), confirm: 'Are you sure?', method: :delete %>
+        <%end%>                    
+        </div>
+        <div class="eight columns">
+    <dl class="tabs">
+        <dd class="active"><a href="#base">Base</a></dd>
+        <dd><a href="#map">Map</a></dd>
+        <dd><a href="#trip">Trips</a></dd>
+    </dl>
+    <ul class="tabs-content">
+        <li id="baseTab" class="active">
+	    <table>
+	        <tr>
+		        <td>Groupname:</td>
+		        <td><%= @meetup_profile.groupname %></td>
+	        </tr>
+	        <tr>
+	            <td>Group:</td>
+		        <td><%= @meetup_profile.id %></td>
+	        </tr>
+	        <tr>
+	            <td>Trips:</td>
+		        <td><%= Meetup.find(:all,:conditions=>{:group_id=>@meetup_profile.id }).count %></td>
+	        </tr>
+            <tr>
+                <td>Members:</td>
+		        <td><%= GroupMembership.find(:all,:conditions=>{:group_id=>@meetup_profile.id}).count%> members</td>
+	        </tr>
+	        <tr>
+		        <td>Organaizer Name : </td>
+		        <td><%= @meetup_profile.organaizer_username%></td>
+	        </tr>
+            <tr>
+	            <td>Discription: </td>
+		        <td><%= @meetup_profile.discription %></td>
+	        </tr>
+	        <tr>
+	            <td>Base Area</td>
+		        <td><%= @meetup_profile.address%></td>
+	        </tr>
+        </table>
+        </li>
+        <li id="mapTab">
+		    <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@meetup_profile.latitude}%2C#{@meetup_profile.longitude}" %>
+	    </li>
+	    <li id="tripTab">
+	        <dl class="tabs">
+	            <dd class="avtive"><a href="#future">Coming Trips</a></dd>
+	            <dd><a href="#past">Past Trips</a></dd>
+	        </dl>
+	        <ul class="tabs-content">
+	            <li id="futureTab" class="active">
+	                
+	                <h3>Up Coming Trips</h3> 
+	                <% Meetup.find(:all,:conditions=>{:group_id => @meetup_profile.id}, :limit=>30).each do |trip|%>
+	                <% if trip.blank?%>
+                        <h3>Ooops there is not up coming trip</h3>
+                    <%else%>
+	                    <% if trip.date > Time.now %>   
+	                        
+	                    <div class="posts">
+	                        <div class="user">
+	                        <h3><%=link_to trip.title, trip %></h3>
+	                            <p><%= trip.date.to_formatted_s(:long_ordinal)%></p>
+	                        </div>
+	                        <div class="contents">
+	                            CAR POOL @ <b><%= trip.address%></b><br />
+	                            DISCRIPTION :<br />
+	                            <p><%=h truncate(trip.discription, :length => 100)%></p>
+	                            <p><%= MeetupRsvp.where(:event_id=> trip.id, :rsvp=> true).count%> attending</p>
+	                            <p><%= MeetupComment.where(:event_id=> trip.id).count%> Comments</p>
+                            </div>
+	                        
+	                    </div>
+	                    <%end%>
+                    <%end%>
+                <%end%>
+	            </li>
+	            <li id="pastTab">
+	                <h3>Past Trips </h3>
+    	            <% Meetup.find(:all,:conditions=>{:group_id => @meetup_profile.id},:order=>'date DESC',:limit=>30).each do |trip|%>	                
+	                <%if trip.blank?%>
+	                        <h3>Ooops there is not past trip </h3>
+	                <%else%>
+                        <%if Time.now > trip.date %>
+	                        <div class="posts">
+	                        <div class="user">
+	                        <h3><%=link_to trip.title, trip %></h3>
+	                            <p><%= trip.date.to_formatted_s(:long_ordinal)%></p>
+	                        </div>
+	                        <div class="contents">
+	                            CAR POOL @ <b><%= trip.address%></b><br />
+	                            DISCRIPTION :<br />
+	                            <p><%=h truncate(trip.discription, :length => 100)%></p>
+	                            <p><%= MeetupRsvp.where(:event_id=> trip.id, :rsvp=> true).count%> attending</p>
+	                            <p><%= MeetupComment.where(:event_id=> trip.id).count%> Comments</p>
+                            </div>
+	                        
+	                    </div>
+	                    <%end%>
+                    <%end%>
+                <%end%><!-- find trip end -->
+	            </li>
+	        </ul>
+	    </li>
+    </ul>
+    </div>
+    </div>
+    <%if current_user.id == @meetup_profile.organaizer_id%>
+	    <%= link_to 'Edit', edit_meetup_profile_path(@meetup_profile) %> |
+	<%end%>
+	<%= link_to 'Back', request.referer %> |  
+	
+    <div id="window"></div>
+</div>

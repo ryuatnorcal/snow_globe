@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snowbaord</title>
+  <%= stylesheet_link_tag "application"%>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true" %>
+  <%= javascript_include_tag "https://raw.github.com/HPNeo/gmaps/master/gmaps.js" %>
+  <%= javascript_include_tag "jquery.easing.1.3.js" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" %>
+  <%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" %> 
+
+  <%= javascript_include_tag "rails" %>
+
+
+  
+  <!--  <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAotMNfufAnXJo88npG81LNGbVFTusd9vs&sensor=true">
+    </script>
+ -->
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= csrf_meta_tags %>
+  
+  <!-- Google Maps API --
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    -->
+    
+    
+</head>
+<body id="background" class="<%= controller.controller_name %>">
+<% if user_signed_in? %>
+    <div class="row">
+        <div class="six columns push-six">
+		    <table>
+			    <tr>
+				    <td><%= link_to 'Dashboard',dashboard_path%></td>
+				    <!--<td><%= link_to 'Pictures', pictures_path %></td>-->
+				    <!--<td><%= link_to 'Maps', places_path %></td>-->
+				    <td><%= link_to 'Resorts',resorts_path %></td>
+				    <td><%= link_to 'Find Groups', groups_path%><td>
+				    <!-- need to fix here  -->
+				    <!-- <td><%= link_to 'Join a Trip',meetups_path%></td>-->
+				    <td><%= link_to 'Find Friends',find_path%></td>
+			    </tr>
+		    </table>
+	    </div><!-- end of columns-->
+    </div><!-- end of row -->
+    <%end%>
+    <div class="row">
+	    <!--<div id="user_nav" class="five columns">-->
+	    <div class="four columns">
+      <% if user_signed_in? %>
+        Signed in as <%= current_user.username %>.
+        <%= link_to "Not you?", destroy_user_session_path %>
+
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+      <% end %>
+	    </div><!-- end columns-->
+    </div><!-- end row -->
+    <div class="row">
+	    <!--<div id="contents" class="twelve columns">-->
+	    <div class="twelve columns">
+	    <%if user_signed_in? %>
+		    <h2 class="plaster_font">Hello, <%= current_user.username %> !!</h2>
+		
+		    <%= yield %>
+	    <% else %>
+		    <h2 class="plaster_font">Welcome Guest !! </h2>
+		    <%= yield %>
+	    <% end %>
+	    </div><!-- -end columns-->
+
+    </div><!-- end of row -->
+</body>
+</html>

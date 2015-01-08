@@ -1,0 +1,252 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+    <div id="form_wrapper_email" class="twelve columns centered">
+<!-- HEADER SETS -->
+    <div class="row">
+<!-- TITLE -->
+        <div class="twelve columns centered ">
+          <h1><%= @meetup.title %></h1>
+          <h4><%= @meetup.date.to_formatted_s(:long_ordinal)%></h4>
+        </div>
+<!-- RSVP BUTTON -->
+        <div class="three columns">
+	        <ul>
+	        <%if MeetupRsvp.exists?(:user_id=>current_user.id, :event_id => @meetup.id )%>
+		        <% MeetupRsvp.where(:user_id=>current_user.id, :event_id=>@meetup.id).each do |rsvp| %>
+			        <li><%= link_to "Edit RSVP", {:controller=>"meetup_rsvps",:action=>"edit",:id=>rsvp.id,:event_id=>@meetup.id}%></li>
+		        <%end%>
+	        <%else%>
+		        <li><%= link_to "Make Your RSVP",{:controller => "meetup_rsvps", :action => "new", :event_id => @meetup.id }%></li>
+	        <%end%>
+	        </ul>
+        </div>
+    </div>
+<!-- TRIP SESSION -->
+    <div class="row">
+<!-- GROUP DESCRIPTION -->
+        <div class="three columns">
+        <%MeetupProfile.where(:id=>@meetup.group_id).each do |group|%>
+            <%= image_tag group.image_url(:thumb) if group.image? %>
+        <ul>
+            <li>Group : <%= link_to @meetup.groupname, meetup_profile_path(@meetup.group_id) %></li>
+            <li>Area : <%= group.address %></li>
+            <li>Discription</li>
+            <li><%= group.discription%></li>
+        </ul>
+        <%end%>
+        </div>
+<!-- TRIP DETAIL -->
+        <div class="six columns">
+            <!-- tab menu -->
+            <dl class="tabs">
+                <dd class="active"><a href="#detail">Trip Detail</a></dd>
+                <dd><a href="#photos">Trip Photos</a></dd>
+                <%if current_user.id == @meetup.organaizer_id %>
+                <dd><a href="#attendance">[Admin] Attend</a></dd>
+                <dd><a href="#contacts">[Admin] contact</a></dd>
+                <%end%>
+            </dl>
+            <!-- contents of tabs-->
+            <ul class="tabs-content">
+                <li id="detailTab" class="active">
+                    <p>
+                      <b>Cost: $</b>
+                      <%= @meetup.cost %>
+                    </p>
+                    <p>
+                      <b>Meet Up Time :</b>
+                      <%= @meetup.date.to_formatted_s(:long_ordinal) %>
+                    </p>
+
+                    <p>
+                      <b>Meet Up Location:</b>
+                      <%= @meetup.address %><br />
+                      <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@meetup.latitude}%2C#{@meetup.longitude}" %>
+
+                    </p>
+
+                    <p>
+                      <b>Discription:</b>
+                      <%= @meetup.discription %>
+                    </p>
+                    <p>
+                      <b>Organaizer:</b>
+                      <%= @meetup.organaizer_id %>
+                    </p>
+
+                    <p>
+                      <b>Organaizer name:</b>
+                      <%=link_to @meetup.organaizer_name,{:controller => "profiles", :action => "show",:id=>@meetup.organaizer_id, :event_id => @meetup.id } %>
+                    </p>
+
+                    <p>
+                      <b>Distination:</b>
+                      <%= @meetup.distination %>
+                    </p>
+                </li>
+                <li id="photosTab">
+                    <div class="ten columns centered">
+                        <h4>Sorry... Photo is underconstruction .... </h4>
+                    </div>
+                </li>
+                <li id="attendanceTab">
+                   <%if current_user.id == @meetup.organaizer_id %>
+            <!-- HERE IS ADMIN AREA -->
+            <!-- 
+	            [Fixme]
+		            THIS SESSION NEED TO DEFINE WHICH MODULE YOU WANNA USE. 
+		            THIS MODULE WILL BE THE RSVP MODULE YOU NEED TO DEFINE WHICH MODULE YOU USE
+		            ALSO YOU HAVE TO FIX PROFILE PAGE OF THE PERCENTAGE OF THE ATTENDANCE RATE !!  
+		            THE FORMULA IS LOCATED AT THE SAME DOCUMENT AS WHERE IT'S SUPPOSED TO AT 
+
+            -->
+	                <p>You can roll call for the <b>"<%= @meetup.title%>"</b>. <br />
+		               <font color="red"> NOTE : ORGANAIZER CAN CHANGE ATTENDANCE STATUS BY END OF THE DAY. </font>
+	                </p>
+	                <!-- ATTENDANCE LIST  -->
+	                <table>
+		                <tr>
+			                <th><b>User Name </b></th>
+			                <th><b>Status</b></th>
+			                <th><b>Attended :)</b></th>
+			                <th><b>No Show :(</b></th>
+			                <th></th>
+		                </tr>
+		                <% MeetupRsvp.where(:event_id=> @meetup.id, :rsvp=> true).each do |f| %>
+                        <tr>
+                            <td><%= f.username %></td>
+                            <% if Time.now < @meetup.date%>
+                                <td>********</td>
+                            <%else%>
+                                <% if f.attend? %>
+                                    <td> Attended :) </td>
+                                <% else%>
+                                    <td> Not Showed :( </td>
+                                <% end %>        
+                            <%end%>
+                             <% if Time.now < @meetup.date.end_of_day()  %>
+                                 <%= form_for(@meetup,:url=>meetup_path(f.id),:action=>'update' ) do |a| %>
+                                     <td><%= radio_button_tag(:attend,'true') %>
+                                         <%= label_tag(:attend, "Attended") %></td>
+                                     <td><%= radio_button_tag(:attend,'false') %>
+                                         <%= label_tag(:attend, "Not Show :( ") %></td>
+                                     <td><%= submit_tag "Save!" %></td>
+                                 <%end%>
+                             <%end%>
+                            </tr>
+	                    <%end%>
+	                </table>
+	                <!-- ATTENDANCE LIST END -->
+            </li>
+            <li id="contactsTab">
+    	        <!-- ATTENDANCE USER INFORMATION -->
+    
+	                <p>These people are going to attend <b>"<%= @meetup.title%>"</b>.<br />
+	                You can print out this list and use it as roll call sheet :9 
+	                </p>
+	                <div class="printer_friendly">Printer Friendly</div>
+	                <table>
+		                <tr>
+			                <th><b>First </b></th>
+			                <th><b>Last </b></th>
+			                <th><b>Phone # </b></th>
+			                <th><b>Email</b> </th>
+		                </tr>	
+		                <% MeetupRsvp.where(:event_id => @meetup.id, :rsvp=>true).each do |attend| %>
+			                <%Profile.where(:username => attend.username).each do |user| %>
+		                <tr>
+			                <td><%= user.firstName%></td>
+			                <td><%= user.lastName %></td>
+			                <td><%= user.phone%></td>
+			                <td><%= user.email%></td>
+		                </tr>
+			                <%end%>
+		                <%end%>
+	                </table>
+	                <br />
+	                <!-- END OF ATTENDANCE USER INFORMATION -->
+                    <%end%>
+                </li>
+            </ul>
+        </div><!-- end of six columns -->
+<!-- attender list -->
+        <div class="three columns">
+	        <b>Coming List (<%=MeetupRsvp.where(:event_id=> @meetup.id, :rsvp=> true).count%>)</b>
+	        <ul>
+	            <%MeetupRsvp.where(:event_id=> @meetup.id, :rsvp=> true).each do |attend| %>
+		            <li><%= link_to attend.username, {:controller => "profiles", :action => "show",:id=>attend.user_id, :event_id => @meetup.id } %></li>
+	            <%end%>
+	        </ul>
+	        <hr>
+	        <b>Not Going List (<%=MeetupRsvp.where(:event_id=> @meetup.id, :rsvp=> false).count%>)</b>
+	        <ul>
+	            <%MeetupRsvp.where(:event_id=> @meetup.id, :rsvp=> false).each do |attend| %>
+		            <li><%= link_to attend.username, {:controller => "profiles", :action => "show",:id=>attend.user_id, :event_id => @meetup.id } %></li>
+	            <%end%>
+            </ul>
+	        <hr>
+    <!-- end of attender list -->
+        </div>
+    <br />
+    </div><!-- end of row -->
+    <div class="row">
+        <div class="two columns push-ten">
+            
+            <table>
+                <tr>
+            <%if current_user.id == @meetup.organaizer_id %>
+                <td><%= link_to 'Edit', edit_meetup_path(@meetup),:group_id=>@meetup.group_id %> |</td>
+            <%end%>
+                <td><%= link_to 'Back', request.referer %></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="popup_contents_comments rounded-corner <%= @meetup.id%>">
+        <%= form_for(@meetup_comment) do |f| %>
+          <% if @meetup_comment.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@meetup_comment.errors.count, "error") %> prohibited this meetup_comment from being saved:</h2>
+
+              <ul>
+              <% @meetup_comment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+	        <%= hidden_field_tag(:event_id,@meetup.id) %>
+          <div class="field">
+            <%= f.label :comment %><br />
+            <%= f.text_area :comment %>
+          </div>
+          <table>
+              	    <tr>
+                        <td><%= f.submit %></td>
+                        <td class="close">Cancel</td>
+                    </tr>
+                </table>
+        <% end %>
+    </div>
+    <div id="window"></div>
+    <div class="row">
+<!-- comment session -->
+        <div class="six columns centered ">
+         <div id="<%= @meetup.id%>" class="comment_new">Comment</div>
+            <% @count = MeetupComment.where(:event_id => @meetup.id).count %>
+            <%if @count>0 %>
+	            <h2>Comments</h2>
+                   
+		            <% MeetupComment.where(:event_id => @meetup.id).sort_by(&:id).reverse.each do |comment| %>
+			            <div id="contents" class="posts">
+				            <p class="user"><%= link_to comment.username, {:controller => "profiles", :action => "show",:id=>comment.user_id, :event_id => @meetup.id } %></p>
+				            <p class="contents"><%= comment.comment %></p>
+				            <% if comment.username== current_user.username %>
+					            <%= link_to 'Delete',comment, confirm: 'Are you sure?', method: :delete %>
+				            <% end %>
+			            </div>
+		            <% end %>
+            <% end %>
+        
+        </div>
+</div><!-- row -->

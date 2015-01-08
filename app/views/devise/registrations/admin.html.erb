@@ -1,0 +1,73 @@
+<%if current_user.id == 55%>
+<div class="row">
+    <div class=" ten columns centered ">
+        <div id="form_wrapper_email">
+        <h1> Admin Area </h1>
+        <!-- Here is menut tabs  -->
+        <dl class="tabs">
+            <dd class="active"><a href="#user">Users</a></dd>
+            <dd><a href="#userpro">User Profiles</a></dd>
+            <dd><a href="#micropost">Microposts</a></dd>
+            <dd><a href="#microcoments">Microposts comments</a></dd>
+            <dd><a href="#pictures">Picutres</a></dd>
+            <dd><a href="#meetups">Meetups</a></dd>
+            <dd><a href="#meetprofile">Meetup Profiles</a></dd>
+            <dd><a href="#meetgroups">Meetup Groups</a></dd>
+            <dd><a href="#meettrips">Meetup Trips</a></dd>
+        </dl>
+        <!-- Here is tabs contents -->
+            <ul class="tabs-content">
+                <li id="userTab" class="active">
+                    <table>
+                        <tr>
+                            <td>ID</td>
+                            <td>USER NAME</td>
+                            <td>EMAIL</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <% User.find(:all).each do |user| %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.username%></td>
+                            <td><%= user.email%></td>
+                            <td></td>
+                            <td></td>
+                            <td><%= link_to "Kick Out the User", registration_path(resorces_name), :confirm => "Are you sure?", :method => :delete %></td>
+                        </tr>
+                        <%end%>
+                    </table>
+                </li><!-- user tab end -->
+                <li id="userprofTab">
+                
+                </li><!-- user profile end -->
+                <li id="micropostTab">
+                
+                </li><!-- user profile end -->
+                <li id="microcomentsTab">
+                
+                </li><!-- user profile end -->
+                <li id="picturesTab">
+                
+                </li><!-- user profile end -->
+                <li id="meetupsTab">
+                
+                </li><!-- user profile end -->
+                <li id="meetprofileTab">
+                
+                </li><!-- user profile end -->
+                <li id="meetgroupsTab">
+                
+                </li><!-- user profile end -->
+                <li id="meettripsTab">
+                
+                </li><!-- user profile end -->                
+            </ul><!-- tab contents end -->
+    </div><!-- column end -->
+</div><!-- row end -->
+<%else%>
+    <script type="text/javascript">
+        window.location.href="/microposts"  // put your correct path in a string here
+    </script>
+<%end%>

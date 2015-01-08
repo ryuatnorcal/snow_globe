@@ -1,0 +1,25 @@
+/******************************************************************************
+    Smooth big div
+******************************************************************************/
+    $(".readmore").click(function(){
+        var $id = $(this).attr("id");
+        var $target_id = "#post-"+$id; 
+        var $long = ".long-"+$id;
+        var $short = ".short-"+$id;
+        $(".flex-cube").toggle(
+            function () {
+                $($target_id).animate({marginRight: 0,width:"490px" }, 1000, "easeInOutQuad")
+            },
+            function () {                
+                $($target_id).animate({marginRight: 0,width:"490px" }, 1000, "easeInOutQuad")                   
+            }  
+        );    
+        $($target_id).addClass(".extended");
+        
+        $($long).fadeIn(1000);
+        $($short).fadeOut(1000);
+        $("#form").empty();
+        $("#form").html("<%= escape_javascript(raw render :partial => 'form').html_safe %>");
+        return;
+    });
+

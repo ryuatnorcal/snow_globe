@@ -1,0 +1,438 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require foundation
+ *= require_tree .
+ *= require "foundation" 
+ *= require "foundation/globals"
+ *= require "foundation/typography"
+ */
+/*******************************************************************************
+    GOOGLE WEB FONTS 
+*******************************************************************************/
+ @import url(http://fonts.googleapis.com/css?family=Plaster); /*font-family: 'Plaster', cursive;*/
+
+.plaster_font{
+  font-family: 'Plaster', cursive;
+  font-weight: 400; 
+}
+.gray_font{
+	color:#C0C0C0;
+}
+.white_font{
+  color:#FFFFFF;
+}
+.big_font_weight_for_plaster{
+    font-weight:700;
+}
+.red{
+    color:#FF0000;
+    font-weight:bold;
+}
+.green{
+    color:#00FF88;
+    font-weight:bold;
+}
+.white_bk{
+	background:#FFFFFF;
+}
+.black_bk{
+    background:#000000;
+}
+.rounded-corner{
+	border-radius:15px;
+}
+.tenpx-padding{
+	padding:10px;
+}
+.fivepx-margin{
+	margin:5px;
+}
+.cube{
+	min-width:200px;
+	/*height:400px;*/
+}
+.flex-cube{
+    margin:10px;
+    padding:20px;
+    width:200px;
+    /*max-width:40%;*/
+    min-height:250px;
+    background:#ffffff;
+    border:10px solid #C0C0C0;
+    float:left;
+    margin-left: 1em;
+}
+.float_left{
+	float:left;
+}
+.eightty-percent-window{
+	height:80%;
+	width:80%;
+}
+
+body{
+    z-index:1; 
+}
+/****************************************************************
+	Devise
+****************************************************************/
+#background{ 
+	background: url('snow.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#form_wrapper_email{
+	background:#ffffff;
+	border-radius:15px;
+	/*width:50%;*/
+	padding:10px 10px 10px 100px;
+	/*margin-right: auto;
+	margin-left: auto;*/
+}
+#form_wrapper{
+	background:#ffffff;
+	border-radius:15px;
+	float:right;
+	position:  30px; 
+	padding:10px;
+	margin:30px 50px 10px 10px;
+}
+/****************************************************************
+	microposts
+****************************************************************/
+#Profile{
+    min-height: 250px;
+    width: 50%;
+}
+#Profile img{
+    float:left;
+    margin-right: 1em; 
+}
+.microposts{
+		/*background-image: url('Sport_Extreme_descent_021290_.jpg');*/
+}
+.wrapper{
+	width:100%;
+}
+#user_info_wrapper{
+	min-width:400px;
+	min-height:500px;
+	/*margin:80px 10px 10px 10px;*/
+	float:left;
+}
+.microposts #contents{
+	/*width: 70%;*/
+	/*margin: 10px auto 10px auto;*/
+	padding: 20px;
+	z-index:1;
+}
+#micropost_contents{
+	/*width:65%;
+	float:left;*/
+}
+/*Posting feild*/
+.posts{
+	padding: 0px 10px 0px 10px;
+	margin-bottom:10px;
+	background: #FFFFFF;
+	color:#000000;
+	border: 1px solid #000000;
+}
+.user{
+	background:#000000;
+	color:#ffffff;
+	padding-left:10px; 
+	margin-top:10px;
+	margin_bottom:0px;
+}
+p.contents{
+/*	margin: 0px;*/
+	/*padding-left:30px*/
+}
+
+/*User information feild*/
+#user_info_wrapper{
+	/*float: left;*/
+	/*width: 30%;*/
+	background:#ffffff;
+	border: 1px solid #000000;
+}
+#user_img{
+	width:150px;
+	height:150px;
+	margin:30px auto 10px auto;
+	border: 1px solid #000000;
+}
+#user_img img{
+	width:150px;
+	height:150px;
+}
+/***************************************************************************
+	Here is comment show 
+***************************************************************************/
+#comment{
+
+	 margin:5px 5px 5px 60px;
+	 padding:0px 10px 10px 10px ;
+
+}
+/***************************************************************************
+	Scoffold
+***************************************************************************/
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; }
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; }
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px; }
+
+a {
+  color: #000;
+  &:visited {
+    color: #666; }
+  &:hover {
+    color: #fff;
+    background-color: #000; } }
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px; } }
+
+#notice {
+  color: green; }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table; }
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff; }
+  ul li {
+    font-size: 12px;
+    list-style: square; } }
+/***********************************************************************************
+
+***********************************************************************************/
+.posts{
+    z-index:2;
+}
+a:link,a:visited,a:hover,a:active{
+	color:#736F6E;
+	 text-decoration: none;
+}      /* unvisited link */
+
+
+table{
+	margin:0px auto 0px auto;
+}
+.menu a:link{
+ 	color:#FFFFFF;
+ 	text-decoration: none;
+
+ }
+
+ /* MENU BAR */
+.menu{
+  border: 5px solid #595454;
+	background:#000000;
+	color:#ffffff;
+	padding:25px;
+}
+.menu td{
+	padding: 10px;
+	display: inline;
+	list-style-type: none;
+	font-size: 25px;
+}
+.select td select{
+    display: inline-block;
+    list-style-type: none;
+}
+
+/*******************************************************************************
+    Post New Pop Up Windows
+*******************************************************************************/
+#window,#hide,#bk{
+    display:none; 
+	opacity: 0.7; 
+	position:fixed;  
+	_position:absolute; /* hack for internet explorer 6*/  
+	height:100%;  
+	width:100%;  
+	top:0;  
+	left:0;  
+	background:#000000;  
+	border:1px solid #cecece;  
+	z-index:3;  
+}
+#big-popup-contents,#post_area{
+	display:none; 
+	position:fixed;
+	margin:20px 0px 0px 0px;
+	_position:absolute; /* hack for internet explorer 6*/  
+	left:10%;
+	top:0%;
+	z-index:4;
+	overflow:auto;
+}
+
+#popup_contents, .popup_contents_comments{
+  display:none; 
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/  
+	min-height:345px;
+	max-height:450px;
+	max-width:  650px;
+	top:30%;
+	left:auto;
+
+	background:#FFFFFF;  
+	border:2px solid #cecece;  
+	z-index:4;  
+	padding:12px; 
+	font-size:13px;  
+	overflow:auto;
+}
+.popup-picture{
+    display:none; 
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/  
+    min-width:640px;
+    min-height:480px;
+    max-width:1000px;
+	max-height:1000px;
+	top:0px;
+	left:0px;
+	background:#FFFFFF;  
+	border:2px solid #cecece;  
+	z-index:4;  
+	padding:12px; 
+	font-size:13px;  
+	overflow:auto;
+}
+.big_window{
+    background:#FFFFFF;
+    display:none; 
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/  
+    min-width:640px;
+    min-height:480px;
+    max-width:1000px;
+	max-height:1000px;
+	z-index:5;
+}
+#comp_wrapper{
+	background:#ffffff;
+	margin: 20px 0px 0px 0px;
+	padding:10px;
+	z-index:4;
+	opacity: 2.0;
+
+}
+
+.inactive{
+    display:none;
+}
+/******************************************************************************
+    File button tweek tool 
+******************************************************************************/
+#fakey
+{
+    position:relative;
+    width: 200px;
+    height: 30px;
+    overflow:hidden;
+
+}
+
+#fake_button
+{
+    position: absolute;
+    width: 150px;
+    height: 100%;
+}
+
+.file
+{
+    width:200px;
+    height: 30px;
+    font: 500px monospace; /* make the input's button HUGE */
+    opacity:0; /* this will make it transparent */
+    filter: alpha(opacity=0); /* transparency for Internet Explorer */
+    position: absolute;  /* making it absolute with z-index:1 will place it on top of the button */
+    z-index: 1;
+    top:0;
+    right:0;
+    padding:0;
+    margin: 0;
+}
+/******************************************************************************
+    twek cube 
+******************************************************************************/
+.cont_wrapper{
+    margin:5px;
+}
+
+/******************************************************************************
+    JQuery Button must have this 
+*******************************************************************************/
+.close,#close, .post_new,.comment_new,.comp{
+    cursor: pointer; 
+
+}
+/*******************************************************************************
+    Scroll bar 
+*******************************************************************************/
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background:#4B4B4B;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background:#000000;
+}
+

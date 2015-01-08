@@ -1,0 +1,32 @@
+
+<div>
+	<h1 class="plaster_font white_font">Find New Friends </h1>
+	<% @profiles.each do |user|%>
+	<div class="flex-cube float_left rounded-corner">
+		<div class="contents tenpx-padding white_bk fivepx-margin">
+			<%= link_to image_tag(user.image_url(:thumb)), profile_path(user.id) if user.image?%>
+			<table>
+				<tr>
+					<td>Name: </td>
+					<td><%=link_to user.userName,  profile_path(user.id)%></td>
+				</tr>
+				<tr>
+					<td>Home Resort:</td>
+					<td><%= user.home_trail%></td>
+				</tr>
+				</table>
+			<%if user.id ==current_user.id %>
+			<%else%>
+				<%@followed = Friendship.where(:friend_id=>user.user_id, :user_id=>current_user.id)%>
+				<% if @followed.exists?%>
+					<% Friendship.find(:all,:conditions=>["friend_id=? AND user_id=?",user.user_id, current_user.id]).each do |friend|%>
+						<%= link_to 'Unfollow',unfriend_path(:id=>friend.id) ,confirm: 'Are you sure?', method: :unfriend %>
+					<%end%>
+				<%else%>		
+					<%= link_to "Follow", {:controller => "profiles",:action=>'create', :friend_id => user.id }, :method=>'post'%>
+				<%end%>
+			<%end%>
+		</div><!--end of contents -->
+	</div><!-- end of cube -->
+	<%end%>
+</div><!-- end of wrapper -->

@@ -1,0 +1,54 @@
+<%= form_for(@meetup) do |f| %>
+
+  
+  <table>
+    <tr class="select">
+        <td><%= f.label :title %></td>
+        <td><%= f.text_field :title %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr class="select">
+        <td><%= f.label :date %></td>
+        <td><%= f.datetime_select :date %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><%= f.label :discription %></td>
+        <td><%= f.text_area :discription, :size=>"30x10" %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><%= f.label :cost %></td>
+        <td><%= f.number_field :cost %></td>
+        <td></td>
+        <td></td>
+    </tr>
+  </table>
+    <h3>Meeting Spot</h3>
+  <table>
+    <tr>
+	    <td><%= f.label :address %></td>
+        <td><%= f.text_field :address %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><%= f.label :distination %></td>
+        <td><%= f.text_field :distination %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <%= f.hidden_field :group_id, :value => @meetup_profile.id %>
+    <%= f.hidden_field :groupname, :value => @meetup_profile.groupname%>
+    <tr>
+        <td><%= f.submit%></td>
+        <td class="close">Cancel</td>
+        <td></td>
+        <td></td>
+    </tr>
+  </table>
+  
+<% end %>

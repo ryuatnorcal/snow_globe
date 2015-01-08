@@ -1,0 +1,6 @@
+page.insert_html :bottom, :microposts, :partial => @microposts
+if @products.total_pages > @products.current_page
+  page.call 'checkScroll'
+else
+  page[:loading].hide
+end

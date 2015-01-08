@@ -1,0 +1,230 @@
+<%= form_for(@profile) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h3>STEP 1 >> Personal Information</h3>
+  <table>
+    <tr>
+        <td>Profile Image </td>
+        <td><%= f.file_field :image %></td>
+        <td></td>
+        <td></td>
+    </tr>
+   <!-- <tr>
+        <td>Image URL</td>
+        <td><%= f.label :remote_image_url, "or image URL" %> <%= f.text_field :remote_image_url %></td>
+    </tr>-->
+    <tr>
+        <td><%= f.label :firstName %></td>
+        <td><%= f.text_field :firstName %></td>
+        <td><%= f.label :lastName %></td>
+        <td><%= f.text_field :lastName %></td>
+    </tr>
+    <tr class="select">
+        <td><%= f.label :birthday %></td>
+        <td><%= f.date_select :birthday, :start_year => Time.now.year - 100,
+    :end_year => Time.now.year %></td>    
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><%= f.label :zip %></td>
+        <td><%= f.text_field :zip %></td>
+        <td><%= f.label :phone%></td>
+        <td><%= f.text_field :phone%></td>
+    </tr>
+    <tr>
+        <td><%= f.label :email%></td>
+        <td><%= f.text_field :email, :value=>current_user.email%></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><%= f.label :home_trail %></td>
+        <td><%= f.text_field :home_trail %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </table>
+    <table>
+        <tr>
+        <td>Snowboarder</td>
+        <td><%= f.check_box :Snowboarder %></td>
+        <td>Skier</td>
+        <td><%= f.check_box :Skier %></td>
+        <td>SnowSkater</td>
+        <td><%= f.check_box :Snowskater %></td>
+        <td>Other</td>
+        <td><%= f.check_box :Other_style%></td>
+        <td><%= f.text_field :Other_style_detail%></td>
+        <td></td>
+    </tr>
+  </table>
+  <h3>STEP 2 >> Gear Information</h3>
+  <table>
+    <tr>
+        <td><%= f.check_box :GNU %></td>
+        <td>GUN</td>
+        <td><%= f.check_box :libtech %></td>
+        <td>libTech</td>
+        <td><%= f.check_box :Omatic %></td>
+        <td>Omatic</td>
+        <td><%= f.check_box :Stepchild %></td>
+        <td>Stepchild</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Capita %></td>
+        <td>Capita</td>
+        <td><%= f.check_box :Neversummer %></td>
+        <td>Neversummer</td>
+        <td><%= f.check_box :K2 %></td>
+        <td>K2</td>
+        <td><%= f.check_box :Forum %></td>
+        <td>Forum</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Rome %></td>
+        <td>Rome</td>
+        <td><%= f.check_box :Lamar %></td>
+        <td>Lamar</td>
+        <td><%= f.check_box :Morrow %></td>
+        <td>Morrow</td>
+        <td><%= f.check_box :LTD %></td>
+        <td>LTD</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Dragon %></td>
+        <td>Dragon</td>
+        <td><%= f.check_box :Anon %></td>
+        <td>Anon</td>
+        <td><%= f.check_box :Flow %></td>
+        <td>Flow</td>
+        <td><%= f.check_box :Four_square %></td>
+        <td>Four Square</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :DC %></td>
+        <td>DC</td>
+        <td><%= f.check_box :Dakine %></td>
+        <td>Dakine</td>
+        <td><%= f.check_box :Grenade %></td>
+        <td>Grenade</td>
+        <td><%= f.check_box :Celtek %></td>
+        <td>Celtek</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :six_eight_six %></td>
+        <td>686</td>
+        <td><%= f.check_box :Airblaster %></td>
+        <td>Airblaster</td>
+        <td><%= f.check_box :Bonfire %></td>
+        <td>Bonfire</td>
+        <td><%= f.check_box :Electric %></td>
+        <td>Electric</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Nike_Snowboarding %></td>
+        <td>Nike Snowboarding</td>
+        <td><%= f.check_box :RED %></td>
+        <td>RED</td>
+        <td><%= f.check_box :Roxy %></td>
+        <td>Roxy</td>
+        <td><%= f.check_box :Skullcandy %></td>
+        <td>Skullcandy</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Sessions %></td>
+        <td>Sessions</td>
+        <td><%= f.check_box :Smith %></td>
+        <td>Smith</td>
+        <td><%= f.check_box :Special_Blend %></td>
+        <td>Special Blend</td>
+        <td><%= f.check_box :Thirty_two %></td>
+        <td>Thirty two</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Union %></td>
+        <td>Union</td>
+        <td><%= f.check_box :bentmetal %></td>
+        <td>Bentmetal</td>
+        <td><%= f.check_box :Volcom %></td>
+        <td>Volcom</td>
+        <td><%= f.check_box :Vans %></td>
+        <td>Vans</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Salomon %></td>
+        <td>Salomon</td>
+        <td><%= f.check_box :One_Ball_Jay %></td>
+        <td>One Ball Jay</td>
+        <td><%= f.check_box :Nomis %></td>
+        <td>Nomis</td>
+        <td><%= f.check_box :Billa_Bong %></td>
+        <td>Billa Bong</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :five_one_five_zero %></td>
+        <td>5150</td>
+        <td><%= f.check_box :Analog %></td>
+        <td>Analog</td>
+        <td><%= f.check_box :Avalanche %></td>
+        <td>Avalanche</td>
+        <td><%= f.check_box :Billa_Bong %></td>
+        <td>Billa Bong</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Drake %></td>
+        <td>Drake</td>
+        <td><%= f.check_box :Element %></td>
+        <td>Element</td>
+        <td><%= f.check_box :Limited %></td>
+        <td>Limited</td>
+        <td><%= f.check_box :Palmer_Snowboards %></td>
+        <td>Palmer Snowboards</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Quiksilver %></td>
+        <td>Quiksilver</td>
+        <td><%= f.check_box :Rossignol %></td>
+        <td>Rossignol</td>
+        <td><%= f.check_box :Spyder %></td>
+        <td>Spyder</td>
+        <td><%= f.check_box :Technine %></td>
+        <td>Technine</td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :Swix %></td>
+        <td>Swix</td>
+        <td><%= f.check_box :Rossignol %></td>
+        <td>Rossignol</td>
+        <td><%= f.check_box :The_North_Face %></td>
+        <td>The North Face</td>
+        <td><%= f.check_box :other %></td>
+        <td>Other (<%= f.text_field :other_detail %>)</td>
+    </tr>
+  </table>
+  <h3>STEP 3 >> Introduce yourself to members </h3>
+  <table>
+    <tr>
+        <td><%= f.label :introduce %></td>
+        <td><%= f.text_area :introduce %></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= f.submit %></td>
+    </tr>
+  </table>
+  
+<% end %>

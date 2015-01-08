@@ -1,0 +1,24 @@
+<table>
+                        <tr>
+                            <th></th>
+                            <th>Resort</th>
+                            <th>Distance</th>
+                            <th>Park</th>
+                            <th>Open Lifts</th>
+                            <th></th>
+                        </tr>
+                        
+                        <% @user = Profile.find(:first,:conditions=>["user_id=?",current_user.id])%>
+		                    <% Place.near(@user.zip,60000, :order => :distance).each do |place|%>
+		                    <%if place.categories=="resort"%>
+	                    <tr>
+                            <td><%= image_tag place.image_url(:thumb) if place.image? %></td>
+                            <td><%= place.title%></td>
+                            <td><%= place.distance.round(2) %> miles</td>
+                            <td><%= place.terrain_park%></td>
+                            <td><%= place.open_lifts%></td>
+                            <td><%= link_to "Detail",place%></td>
+                        </tr>
+                            <%end%>
+                        <%end%>
+                    </table>

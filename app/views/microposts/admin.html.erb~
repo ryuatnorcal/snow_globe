@@ -1,0 +1,349 @@
+<%if current_user.username == 'Sierra'%>
+<div class="row">
+    <div class=" ten columns centered ">
+        <div id="form_wrapper_email">
+        <h1> Admin Area </h1>
+        <!-- Here is menut tabs  -->
+        <dl class="tabs">
+            <dd class="active"><a href="#user">Users</a></dd>
+            <dd><a href="#userpro">User Profiles</a></dd>
+            <dd><a href="#friend">Friends</a></dd>
+            <dd><a href="#micropost">Microposts</a></dd>
+            <dd><a href="#microcoments">Microposts comments</a></dd>
+            <dd><a href="#pictures">Picutres</a></dd>
+            <dd><a href="#meetups">Trips</a></dd>
+            <dd><a href="#tripcom">Trip Comments</a></dd>
+            <dd><a href="#meetprofile">Trip Groups</a></dd>
+            <dd><a href="#places">Places</a></dd>
+            <dd><a href="#meettrips">Trip RSVP</a></dd>
+        </dl><br/>
+        <!-- Here is tabs contents -->
+            <ul class="tabs-content">
+                <li id="userTab" class="active">
+                    <h3>User stored in Devise </h3>
+                    <table>
+                        <tr>
+                            <td>ID</td>
+                            <td>USER NAME</td>
+                            <td>EMAIL</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <% User.find(:all).each do |user| %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.username%></td>
+                            <td><%= user.email%></td>
+                            <td><%= user%></td>
+                            <td></td>
+                            <%resorces_name = user %>
+                            <!-- Devise thing didn't work well -->
+                            <td><%= link_to "Cancel my account", registration_path(resorces_name),:confirm => "Are you sure?", :method => :delete %></td>
+                        </tr>
+                        <%end%>
+                    </table>
+                </li><!-- user tab end -->
+                <li id="friendTab">
+                    <h3>Friends list</h3>
+                    <table>
+                          <tr>
+                          	<th>ID</th>
+                            <th>User ID</th>
+                            <th>friend ID</th>
+		                        <th>Unfriend</th>
+
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+
+                        <% Friendship.find(:all).each do |friend| %>
+                          <tr>
+                          	<td><%= friend.id %></td> 
+                            <td><%= friend.user_id %></td>
+                            <td><%= friend.friend_id%></td>
+                            
+                            <td><%= link_to 'unfriend',unfriend_path(:id=>friend.id) ,confirm: 'Are you sure?', method: :unfriend %><td>
+
+                          </tr>
+
+                        <% end %>
+                    </table>
+                </li>
+                <li id="userproTab">
+                    <h3>User's profiles</h3>
+                    <table>
+                      <tr>
+                      	<th>ID</th>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Birthday</th>
+                        <th>Introduce</th>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+
+                    <% Profile.find(:all).each do |profile| %>
+                      <tr>
+                      	<td><%= profile.id %></td>
+                        <td><%= profile.user_id %></td>
+                        <td><%= profile.userName%></td>
+                        <td><%= profile.firstName %></td>
+                        <td><%= profile.lastName %></td>
+                        <td><%= profile.birthday %></td>
+                        <td><%= profile.introduce %></td>
+
+                        <td><%= link_to 'Show', profile %></td>
+                        <td><%= link_to 'Edit', edit_profile_path(profile.id) %></td>
+                        <td><%= link_to 'Destroy', profile, confirm: 'Are you sure?', method: :delete %></td>
+                      </tr>
+                    <% end %>
+                   </table>
+                    
+                </li><!-- user profile end -->
+                <li id="micropostTab">
+                    <h3>Microposts</h3>
+                    <table>
+			            <tr>
+				            <th>Post ID</th>
+				            <th>User</th>
+				            <th>Username</th>
+				            <th>Posts</th>
+				            <th>Post time </th>
+
+				            <th></th>
+				            <th></th>
+				            <th></th>
+			            </tr>
+			            <!--SORT_BY ID : ID ORDER WITH 'REVERSE TO REVERSE THE ID ORDER => DESC ORDER BY ID'-->
+			            <% Micropost.find(:all,:order=>'post_time DESC').each do |micropost| %>	
+			            <tr>
+				            <td><%= micropost.id %></td>
+				            <td><%= micropost.user_id %></td>
+				            <td><%= micropost.username %></td>
+				            <td><%= micropost.posts %></td>
+                            <td><%= micropost.post_time%></td>
+
+				            <td><%= link_to 'Show', micropost %></td>
+				            <td><%= link_to 'Edit', edit_micropost_path(micropost) %></td>
+				            <td><%= link_to 'Delete', micropost, confirm: 'Are you sure?', method: :delete %></td>
+			            </tr>
+		            <% end %>
+	                </table>
+                </li><!-- user profile end -->
+                <li id="microcomentsTab">
+                    <h3>Micropost Comments</h3>
+                    <table>
+                      <tr>
+                      	<th>ID</th>
+                      	<th>User_ID</th>
+                      	<th>Post ID</th>
+                        <th>Username</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                        <th>ID</th>
+                        
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+
+                    <% Comment.find(:all).each do |comment| %>
+                      <tr>
+                        <td><%= comment.id %></td>
+                        <td><%= comment.postID %></td>
+                        <td><%= comment.user_id%></td>
+                        <td><%= comment.username %></td>
+                        <td><%= comment.comment %></td>
+                        <td><%= comment.date %></td>
+
+                        
+                        <td><%= link_to 'Show', comment %></td>
+                        <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+                        <td><%= link_to 'Destroy', comment, confirm: 'Are you sure?',:class=>'admin', method: :delete %></td>
+                      </tr>
+                    <% end %>
+                  </table>
+
+                </li><!-- user profile end -->
+                <li id="picturesTab">
+                    <h3>Pictures</h3>
+                    <table>
+                          <tr>
+                            <th>ID</th>
+                          	<th>Picture</th>
+                            <th>Title</th>
+                            <th>Username </th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+
+                        <% Picture.find(:all).each do |picture| %>
+                          <tr>
+                            <td><%= picture.id%></td>
+                          	<td><%= image_tag picture.image_url(:thumb) if picture.image? %></td>
+                            <td><%= picture.name %></td>
+                            <td><%= picture.username%></td>
+                            <td><%= link_to 'Show', picture %></td>
+                            <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
+                            <td><%= link_to 'Destroy', picture, confirm: 'Are you sure?', method: :delete %></td>
+                          </tr>
+                        <% end %>
+                  </table>
+                </li><!-- user profile end -->
+                <li id="tripcomTab">
+                    <h3> Comments on Tips page </h3>
+                    <table>
+                      <tr>
+                        <th>Event</th>
+                        <th>User</th>
+                        <th>Username</th>
+                        <th>Comment</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+
+                    <% MeetupComments.find(:all).each do |meetup_comment| %>
+                      <tr>
+                        <td><%= meetup_comment.event_id %></td>
+                        <td><%= meetup_comment.user_id %></td>
+                        <td><%= meetup_comment.username %></td>
+                        <td><%= meetup_comment.comment %></td>
+                        <td><%= link_to 'Show', meetup_comment %></td>
+                        <td><%= link_to 'Edit', edit_meetup_comment_path(meetup_comment) %></td>
+                        <td><%= link_to 'Destroy', meetup_comment, confirm: 'Are you sure?', method: :delete %></td>
+                      </tr>
+                    <% end %>
+                </table>
+                </li>
+                <li id="meetupsTab">
+                    <h3>Trip</h3>
+                    <table>
+                          <tr>
+                            <th>Carpool Location </th>
+                            <th>Date</th>
+                            <th>Cost</th>
+                            <th>Title</th>
+                            <th>Organaizer name</th>
+                            <th>Distination</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+
+                        <% Meetup.find(:all).each do |meetup| %>
+                          <tr>
+                            <td><%= meetup.address %></td>
+                            <td><%= meetup.date.to_formatted_s(:long_ordinal) %></td>
+                            <td><%= meetup.cost %></td>
+                            <td><%= meetup.title %></td>
+                            <td><%= meetup.organaizer_name %></td>
+                            <td><%= meetup.distination %></td>
+                            <td><%= link_to 'Detail', meetup %></td>
+                            <td><%= link_to 'Edit', edit_meetup_path(meetup) %></td>
+                            <td><%= link_to 'Destroy', meetup, confirm: 'Are you sure?', method: :delete %></td>
+                          </tr>
+                          <%end%>
+                        </table>
+                </li><!-- user profile end -->
+                <li id="meetprofileTab">
+                    <h3> Trip Profile</h3>
+                    <table>
+	                      <tr>
+		                    <th>ID</th>
+		                    <th>Groupname</th>
+		                    <th>Group</th>
+		                    <th>Image</th>
+		                    <th>Trips</th>
+		                    <th>Members</th>
+		                    <th>Member names</th>
+		                    <th></th>
+		                    <th></th>
+		                    <th></th>
+	                      </tr>
+
+	                    <% MeetupProfile.find(:all).each do |meetup_profile| %>
+	                      <tr>
+		                    <td><%= meetup_profile.id %></td>
+		                    <td><%= meetup_profile.groupname %></td>
+		                    <td><%= meetup_profile.group_id %></td>
+		                    <td><%= image_tag meetup_profile.image_url(:prof) if meetup_profile.image? %></td>
+		
+		                    <td><%= meetup_profile.members %></td>
+		                    <td><%= meetup_profile.member_names %></td>
+		                    <td><%= link_to 'Show', meetup_profile %></td>
+		                    <td><%= link_to 'Edit', edit_meetup_profile_path(meetup_profile) %></td>
+		                    <td><%= link_to 'Destroy', meetup_profile, confirm: 'Are you sure?', method: :delete %></td>
+	                      </tr>
+	                    <% end %>
+	               </table>
+                </li><!-- user profile end -->
+                <li id="placesTab">
+                    <h3>Places</h3>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>PLACE</th>
+                            <th>TYPE</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>                            
+                        </tr>
+                    <% Place.find(:all).each do |place|%>
+                        <tr>
+                            <td><%= place.id%></td>
+                            <td><%= place.title%></td>
+                            <td><%= place.categories%></td>
+                            <td><%= link_to 'Show', place %></td>
+                            <td><%= link_to 'Edit', edit_place_path(place)%></td>
+                            <td><%= link_to 'Delete', place, confirm: 'Are you sure?', method: :delete %></td>
+                        </tr>
+                    <%end%>
+                    </table>
+                </li><!-- user profile end -->
+                <li id="meettripsTab">
+                    <h3>RSVP for Trips</h3>
+                    <table>
+                          <tr>
+                          	<th>RSVP ID </th>
+                            <th>Event</th>
+                            <th>User</th>
+                            <th>Rsvp</th>
+                            <th>Attend</th>
+                            <th>Comment</th>
+                            <th>username</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+
+                        <% MeetupRsvp.find(:all).each do |meetup_rsvp| %>
+                          <tr>
+                          	<td><%= meetup_rsvp.id %></td>
+                            <td><%= meetup_rsvp.event_id %></td>
+                            <td><%= meetup_rsvp.user_id %></td>
+                            <td><%= meetup_rsvp.rsvp %></td>
+                            <td><%= meetup_rsvp.attend %></td>
+                            <td><%= meetup_rsvp.comment %></td>
+                            <td><%= meetup_rsvp.username%></td>
+                            <td><%= link_to 'Show', meetup_rsvp %></td>
+                            <td><%= link_to 'Edit', edit_meetup_rsvp_path(meetup_rsvp) %></td>
+                            <td><%= link_to 'Destroy', meetup_rsvp, confirm: 'Are you sure?', method: :delete %></td>
+                          </tr>
+                        <% end %>
+                    </table>
+                </li><!-- user profile end -->                
+            </ul><!-- tab contents end -->
+    </div><!-- column end -->
+</div><!-- row end -->
+<%else%>
+    <script type="text/javascript">
+        window.location.href="/microposts"  // put your correct path in a string here
+    </script>
+<%end%>

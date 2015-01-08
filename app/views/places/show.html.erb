@@ -1,0 +1,519 @@
+<p id="notice"><%= notice %></p>
+<div id="form_wrapper_email">
+   <div class="row">
+    
+        <h1><%= @place.title%></h1>
+            <%=@place.categories%>
+		    
+   </div>
+<div class="row">
+<%if @place.categories != "street" %>
+   <div class="four columns">
+        <%= image_tag @place.image_url(:thumb) if @place.image? %>
+        <table>
+            <tr>
+                <td>Address</td>
+                <td><%= @place.address %></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td class="phone"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><%= mail_to @place.email %></td>
+            </tr>
+            <tr>
+                <td>URL</td>
+                <td><%=link_to @place.url, @place.url  %></td>
+            </tr>
+        </table>
+        <div id="hide"></div>
+        <div id="big-popup-contents" class="eightty-percent-window"><%= render :partial => "comp"%></div> 
+        <div id="click" class="comp button small">Compare</div>
+        <div class="button small"><%= link_to "Buy Ticket", @place.ticket_url,:target => '_blank'%></div>
+        <p><spam class="green plaster_font big_font_weight_for_plaster">O</spam> = available</p>
+        <p><spam class="red plaster_font big_font_weight_for_plaster">X</spam> = not available</p>
+<!-- [FIXME] 
+		The transparency error occurs... 
+-->
+        
+  </div>
+<%end%>
+<% if @place.categories== "resort"%>
+  <div class="eight columns">
+    <dl class="tabs">
+        <dd class="active"><a href="#place"><%= @place.title%></a></dd>
+        <dd><a href="#mountain">Mountain</a></dd>
+        <dd><a href="#terrain">Terrains</a></dd>
+        <dd><a href="#lift">Lifts</a></dd>
+        <dd><a href="#park">Park</a></dd>
+        <dd><a href="#price">Price</a></dd>
+        <dd><a href="#">Weather</a></dd>
+    </dl>
+    <ul class="tabs-content">
+        <li id="placeTab" class="active">
+            <div class="ten columns centered">
+                 <%= image_tag @place.image_url(:thumb) if @place.image? %><br />
+                 <b>Rate:</b><%= @place.rate %>
+                 <h4>Description:</4></br>
+                <%= @place.discription %><br />
+
+                <h4>Basic Information</h4>
+                <table>
+                    <tr>
+                        <td>Address</td>
+                        <td id="phone_number "><%= @place.address %></td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td class="phone"><script>phone_number_tweek(<%= @place.phone%>);</script></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><%= mail_to @place.email %></td>
+                    </tr>
+                    <tr>
+                        <td>URL</td>
+                        <td><%=link_to @place.url, @place.url  %></td>
+                    </tr>
+                </table>
+                
+                <h4>Services</h4>
+                <table>
+                    <tr>
+                        <td>Sell Guears</td>
+                        <td id="1" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.sell %>"><script> bool(<%= @place.sell%>,1)</script></td>
+                        <td>Repaire</td>
+                        <td id="2" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.repaire %>"><script> bool(<%= @place.repaire%>,2)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Maintainance</td>
+                        <td id="3" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.maintainance %>"><script> bool(<%= @place.maintainance%>,3)</script></td>
+                        <td>Rental gears</td>
+                        <td id="4" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.rental_gear %>"><script> bool(<%= @place.rental_gear%>,4)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Wifi</td>
+                        <td id="5" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.wifi %>"><script> bool(<%= @place.wifi%>,5)</script></td>
+                        <td>Cell</td>
+                        <td id="6" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.cell %>"><script> bool(<%= @place.cell%>,6)</script></td>
+                    </tr>
+                </table>
+                <h4>Service Hours</h4>
+                <table>
+                    <tr>
+                        <td>Sunday Open</td>
+                        <td><%= @place.open_times_sun.to_s(:time)%></td>
+                        <td>Sunday Close</td>
+                        <td><%= @place.close_time_sun.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Monday Open</td>
+                        <td><%= @place.open_times_mon.to_s(:time)%></td>
+                        <td>Monday Close</td>
+                        <td><%= @place.close_time_mon.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday Open</td>
+                        <td><%= @place.open_times_tue.to_s(:time)%></td>
+                        <td>Tuesday Close</td>
+                        <td><%= @place.close_time_tue.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday Open</td>
+                        <td><%= @place.open_times_wed.to_s(:time)%></td>
+                        <td>Wednesday Close</td>
+                        <td><%= @place.close_time_wed.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Turthday Open</td>
+                		        <td><%= @place.open_times_thu.to_s(:time)%></td>
+                        <td>Turthday Close</td>
+                        <td><%= @place.close_time_thu.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Friday Open</td>
+                        <td><%= @place.open_times_fri.to_s(:time)%></td>
+                        <td>Friday Close</td>
+                        <td><%= @place.close_time_fri.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Saturday Open</td>
+                        <td><%= @place.open_times_sat.to_s(:time)%></td>
+                        <td>Saturday Close</td>
+                        <td><%= @place.close_time_sat.to_s(:time)%></td>
+                    </tr>
+                </table>
+                
+
+              <h4>Note:</h4>
+              <%= @place.note %>
+
+            </div>
+        </li>
+        <li id="mountainTab">
+            <div class="ten columns centered">
+            <h3>Mountain Profile</h3>
+            <table>
+                <tr>
+                    <td>Ave snow fall</td>
+                    <td><%= @place.ave_snow_fall %> ft</td>
+                    <td>Top elevation</td>
+                    <td><%= @place.top_elevation %> ft</td>
+                </tr>
+                <tr>
+                    <td>Base elevation:</td>
+                    <td><%= @place.base_elevation %> ft</td>
+                    <td>Rideable acres:</td>
+                    <td><%= @place.rideable_acres %> ft</td>
+                </tr>
+                <tr>
+                    <td>Longest run:</td>
+                    <td><%= @place.longest_run %></td>
+                    <td>Snowmaking:</td>
+                    <td><%= @place.snowmaking %></td>
+                </tr>
+                <tr>
+                    <td>Base snow:</td>
+                    <td><%= @place.base_snow %></td>
+                    <td>Strome total:</td>
+                    <td><%= @place.strome_total %></td>
+                </tr>
+            </table>
+            </div>
+        </li>
+        <li id="terrainTab">
+            <div class="ten columns centered">
+            <h3>Terrain Profile</h3>
+            <table>
+                <tr>
+                    <td>Trails:</td>
+                    <td><%= @place.trails %></td>
+                    <td>Terrain beginner:</td>
+                    <td><%= @place.terrain_beginner %></td>
+                </tr>
+                <tr>
+                    <td>Terrain intermid:</td>
+                    <td><%= @place.terrain_intermid %></td>
+                    <td>Terrain advance:</td>
+                    <td><%= @place.terrain_advance %></td>
+                </tr>
+                <tr>
+                    <td>Terrain expert:</td>
+                    <td><%= @place.terrain_expert %></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <h4>Terrain Map</h4>
+             <%= image_tag @place.trail_map_url(:show) if @place.trail_map? %>
+            </div>
+        </li>
+        <li id="liftTab">
+            <div class="ten columns centered">
+                <h3> Lifts Profile</h3>
+                <table>
+                    <tr>
+                        <td>Lifts:</td>
+                        <td><%= @place.lifts %></td>
+                        <td>Open lifts:</td>
+                        <td><%= @place.open_lifts%></td>
+                    </tr>
+                    <tr>
+                        <td>Close lifts:</td>
+                        <td><%= @place.close_lifts %></td>
+                        <td>Open lift time:</td>
+                        <td><%= @place.open_lift_time.to_s(:time) %></td>
+                    </tr>
+                    <tr>
+                        <td>Close lift time:</td>
+                        <td><%= @place.close_lift_time.to_s(:time) %></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </li>
+        <li id="parkTab">
+            <div class="ten columns centered">
+                <h3>Park Profile</h3>
+                <table>
+                    <tr>
+                        <td>Terrain park:</td>
+                        <td id="7" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.terrain_park %>"><script> bool(<%= @place.terrain_park %>,7)</script></td>
+                        <td>Terrain park lv:</td>
+                        <td class="plaster_font bool"><%= @place.terrain_park_lv %></td>
+                    </tr>
+                </table>
+                <h4>Jibs Features</h4>
+                <table>
+                    <tr>
+                        <td>Rail:</td>
+                        <td id="8" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.rail %>"><script>bool(<%= @place.rail %>,8)</script></td>
+                        <td>Box:</td>
+                        <td id="9" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.box %>"><script>bool(<%= @place.box %>,9)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Table top:</td>
+                        <td id="10" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.table_top %>"><script>bool(<%= @place.table_top %>,10)</script></td>
+                        <td>Trees:</td>
+                        <td id="11",class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.trees %>"><script>bool(<%= @place.trees %>,11)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Park bench & picnic table:</td>
+                        <td id="12" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.park_bench_picnic_table %>"><script>bool(<%= @place.park_bench_picnic_table %>,12)</script></td>
+                        <td>Mail box:</td>
+                        <td id="13" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.mail_box %>"><script>bool(<%= @place.mail_box %>,13)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Wall ride:</td>
+                        <td id="14" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.wall_ride %>"><script>bool(<%= @place.wall_ride %>,14)</script></td>
+                        <td>Barrels:</td>
+                        <td id="15" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.barrels %>"><script>bool(<%= @place.barrels %>,15)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Rainbow:</td>
+                        <td id="16" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.rainbow %>"><script>bool(<%= @place.rainbow %>,16)</script></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <h4>Jumps Features</h4>
+                <table>
+                    <tr>
+                        <td>Tabletop:</td>
+                        <td id="17" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.tabletop %>"><script>bool(<%= @place.tabletop %>,17)</script></td>
+                        <td>Step down:</td>
+                        <td id="18" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.step_down %>"><script>bool(<%= @place.step_down %>,18)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Step up:</td>
+                        <td id="19" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.step_up %>"><script>bool(<%= @place.step_up %>,19)</script></td>
+                        <td>Gap:</td>
+                        <td id="20" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.gap %>"><script>bool(<%= @place.gap %>,20)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Hip:</td>
+                        <td id="21" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.hip %>"><script>bool(<%= @place.hip %>,21)</script></td>
+                        <td>Step down:</td>
+                        <td id="22" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.step_down %>"><script>bool(<%= @place.step_down %>,22)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Spine:</td>
+                        <td id="23" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.spine %>"><script>bool(<%= @place.spine %>,23)</script></td>
+                        <td>Super kicker:</td>
+                        <td id="24" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.super_kicker %>"><script>bool(<%= @place.super_kicker %>,24)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Mini kicker:</td>
+                        <td id="25" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.mini_kicker %>"><script>bool(<%= @place.mini_kicker %>,25)</script></td>
+                        <td>Channel gap:</td>
+                        <td id="26" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.step_down %>"><script>bool(<%= @place.step_down %>,26)</script></td>
+                    </tr>
+                </table>
+                <h4>Vertical Features</h4>
+                <table>
+                    <tr>
+                        <td>Half pipe:</td>
+                        <td id="27" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.half_pipe %>"><script>bool(<%= @place.half_pipe %>,27)</script></td>
+                        <td>Quater pipe:</td>
+                        <td id="28" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.quater_pipe %>"><script>bool(<%= @place.quater_pipe %>,28)</script></td>
+                    </tr>
+                </table>
+                <h4>Other Features</h4>
+                <table>
+                    <tr>
+                        <td>Air bag:</td>
+                        <td id="29" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.air_bag %>"><script>bool(<%= @place.air_bag %>,29)</script></td>
+                    </tr>
+                </table>
+            </div>
+        </li>
+        <li id="priceTab">
+            <div class="ten columns centered">
+            <h3>Price Profile</h3>
+            <h4>Day Ticket</h4>
+            <table>
+                <tr>
+                    <td>Adult</td>
+                    <td><%= @place.day_ticket_adult %></td>
+                    <td>Adult Holiday</td>
+                    <td><%= @place.day_ticket_adult_hr %></td>
+                </tr>
+                <tr>
+                    <td>Teen</td>
+                    <td><%= @place.day_ticket_teen %></td>
+                    <td>Teen Holiday</td>
+                    <td><%= @place.day_ticket_teen_hr %></td>
+                </tr>
+                <tr>
+                    <td>Child</td>
+                    <td><%= @place.day_ticket_child %></td>
+                    <td>Child Holiday</td>
+                    <td><%= @place.day_ticket_child_hr %></td>
+                </tr>
+            </table>
+            <h4>Night Ticket</h4>
+            <table>
+                <tr>
+                    <td>Adult</td>
+                    <td><%= @place.night_ticket_adult %></td>
+                    <td>Adult Holiday</td>
+                    <td><%= @place.night_ticket_adult_hr %></td>
+                </tr>
+                <tr>
+                    <td>Teen</td>
+                    <td><%= @place.night_ticket_teen %></td>
+                    <td>Teen Holiday</td>
+                    <td><%= @place.night_ticket_teen_hr %></td>
+                </tr>
+                <tr>
+                    <td>Child</td>
+                    <td><%= @place.night_ticket_child %></td>
+                    <td>Child Holiday</td>
+                    <td><%= @place.night_ticket_child_hr %></td>
+                </tr>
+            </table>
+            ** Holiday : <%= @place.holiday %>
+            </div>
+        </li>
+    </ul>
+  </div>
+ </div>
+<%end%>
+<%if @place.categories=="store"%>
+    <div class="eight columns">
+    <dl class="tabs">
+        <dd class="active"><a href="#place"><%= @place.title%></a></dd>
+    </dl>
+    <ul class="tabs-content">
+         <li id="placeTab" class="active">
+            <div class="ten columns centered">
+                 <%= image_tag @place.image_url(:thumb) if @place.image? %><br />
+                 <b>Rate:</b><%= @place.rate %>
+                 <h4>Description:</4></br>
+                <%= @place.discription %><br />
+
+                <h4>Basic Information</h4>
+                <table>
+                    <tr>
+                        <td>Address</td>
+                        <td><%= @place.address %></td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td><script>phone_number_tweek(<% @place.phone%>);</script></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><%= @place.email %></td>
+                    </tr>
+                    <tr>
+                        <td>URL</td>
+                        <td><%= @place.url %></td>
+                    </tr>
+                </table>
+                <h4>Services</h4>
+                <table>
+                    <tr>
+                        <td>Sell Guears</td>
+                        <td id="30" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.sell %>"><script>bool(<%= @place.sell %>,30)</script></td><%= @place.sell %></td>
+                        <td>Repaire</td>
+                        <td id="31" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.repaire %>"><script>bool(<%= @place.repaire %>,31)</script></td>
+                    </tr>
+                    <tr>
+                        <td>Maintainance</td>
+                        <td id="32" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.maintainance %>"><script>bool(<%= @place.maintainance %>,32)</script></td>
+                        <td>Rental gears</td>
+                        <td id="33" class="plaster_font bool big_font_weight_for_plaster" status="<%= @place.rental_gear %>"><script>bool(<%= @place.rental_gear %>,33)</script></td>
+                    </tr>
+                </table>
+                <h4>Service Hours</h4>
+                <table>
+                    <tr>
+                        <td>Sunday Open</td>
+                        <td><%= @place.open_times_sun.to_s(:time)%></td>
+                        <td>Sunday Close</td>
+                        <td><%= @place.close_time_sun.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Monday Open</td>
+                        <td><%= @place.open_times_mon.to_s(:time)%></td>
+                        <td>Monday Close</td>
+                        <td><%= @place.close_time_mon.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday Open</td>
+                        <td><%= @place.open_times_tue.to_s(:time)%></td>
+                        <td>Tuesday Close</td>
+                        <td><%= @place.close_time_tue.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday Open</td>
+                        <td><%= @place.open_times_wed.to_s(:time)%></td>
+                        <td>Wednesday Close</td>
+                        <td><%= @place.close_time_wed.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Turthday Open</td>
+                        <td><%= @place.open_times_thu.to_s(:time)%></td>
+                        <td>Turthday Close</td>
+                        <td><%= @place.close_time_thu.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Friday Open</td>
+                        <td><%= @place.open_times_fri.to_s(:time)%></td>
+                        <td>Friday Close</td>
+                        <td><%= @place.close_time_fri.to_s(:time)%></td>
+                    </tr>
+                    <tr>
+                        <td>Saturday Open</td>
+                        <td><%= @place.open_times_sat.to_s(:time)%></td>
+                        <td>Saturday Close</td>
+                        <td><%= @place.close_time_sat.to_s(:time)%></td>
+                    </tr>
+                </table>
+                
+
+              <h4>Note:</h4>
+              <%= @place.note %>
+
+            </div>
+        </li>
+    </ul>
+</div>
+<%end%>
+<%if @place.categories=="street"%>
+<div class="eight columns">
+    <dl class="tabs">
+        <dd class="active"><a href="#place"><%= @place.title%></a></dd>
+    </dl>
+    <ul class="tabs-content">
+         <li id="placeTab" class="active">
+            <div class="ten columns centered">
+             <%= image_tag @place.image_url(:thumb) if @place.image? %><br />
+                 <b>Rate:</b><%= @place.rate %>
+                 <h4>Description:</h4></br>
+                <%= @place.discription %><br />
+
+                <h4>Basic Information</h4>
+                <table>
+                    <tr>
+                        <td>Address</td>
+                        <td><%= @place.address %></td>
+                    </tr>
+                    <tr>
+                        <td>URL</td>
+                        <td><%= @place.url %></td>
+                    </tr>
+                </table>
+            </div>
+        </li>
+    </ul>
+</div>           
+<%end%>
+<%= link_to 'Edit', edit_place_path(@place) %> |
+<%= link_to 'Back', request.referer %>
+
+</div>

@@ -1,0 +1,266 @@
+<!--***********************************************
+	This file contain cmpaire son function for 
+	snow resorts
+*************************************************-->
+
+<div id="comp_wrapper" class="rounded-corner">
+	<h3 id="close" style="float:right; padding:10px;">X</h3>
+
+	<h1>Compare Resorts</h1>
+	Following are close to your area...
+	<p><spam class="green plaster_font big_font_weight_for_plaster">O</spam> = available<br /><spam class="red plaster_font big_font_weight_for_plaster">X</spam> = not available</p>
+
+            
+        
+    <dl class="tabs">
+        <dd><a href="#compmountain">Mountain</a></dd>
+        <dd><a href="#compterrain">Terrains</a></dd>
+        <dd><a href="#complift">Lifts</a></dd>
+        <dd class="active"><a href="#comppark">Park</a></dd>
+        <dd><a href="#compprice">Price</a></dd>
+        <dd><a href="#">Weather</a></dd>
+    </dl>
+    <ul class="tabs-content">
+        <li id="compmountainTab">
+            <h2>Mountain Infomation</h2>
+			<table>
+				<tr>
+					<td>Resort</td>
+					<td>Ave snow fall</td>
+					<td>Top elevation</td>
+					<td>Base elevation</td>
+					<td>Rideable acres</td>
+					<td>Longest run:</td>
+					<td>Snowmaking:</td>
+					<td>Base snow:</td>
+					<td>Strome total:</td>
+				</tr>
+				<% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+                        <tr>
+                            <td><%= at.title %></td>
+                            <td><%= at.ave_snow_fall %> ft</td>
+                            <td><%= at.top_elevation %> ft</td>
+                            <td><%= at.base_elevation %> ft</td>
+                            <td><%= at.rideable_acres %> ft</td>
+                            <td><%= at.longest_run %></td>
+                            <td><%= at.snowmaking %></td>
+                            <td><%= at.base_snow %></td>
+                            <td><%= at.strome_total %></td>
+                        </tr>
+                    <%end%>
+                <%end%>			
+			</table>
+		</li>
+		<li id="compterrainTab">
+		    <h2>Terrain Profile</h2>
+		    <table>
+		        <tr>
+		            <td>Trails</td>
+		            <td>Terrain beginner</td>
+		            <td>Terrain intermid</td>
+		            <td>Terrain advance</td>
+		            <td>Terrain expert</td>
+		            <td>Terrain Map</td>
+	            </tr>
+	            <% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+                        <tr>
+                            <td><%= at.trails %></td>
+                            <td><%= at.terrain_beginner %></td>
+                            <td><%= at.terrain_intermid %></td>
+                            <td><%= at.terrain_advance %></td>
+                            <td><%= at.terrain_expert %></td>
+                            <td class="popup_link"><%= image_tag at.trail_map_url(:show) if at.trail_map? %></td>  
+                            <!-- popup window for resort maps  -->
+                            <!--<div id="big-popup-contents" class="big_window"><h3 class="close" style="float:right; padding:10px;">X</h3><%= image_tag at.trail_map_url(:big) if at.trail_map?%></div>  -->
+                        </tr>
+                    <%end%>
+                <%end%>
+            </table> 
+		</li>
+		<li id="compparkTab" class="active">
+		<%$id = 50 %>
+			<h2>Park feature</h2>
+			<h4>Jibs Features</h4>
+			<table>
+				<tr>
+					<td>Resort</td>
+					<td>Rails:</td>
+					<td>Box:</td>
+					<td>Table Top:</td>
+					<td>Trees:</td>
+					<td>Park bench & picnic table:</td>
+					<td>Mail box:</td>
+					<td>Wall ride:</td>
+					<td>Barrels:</td>
+					<td>Rainbow:</td>
+				</tr>
+			    <% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+				        <tr>
+					        <td><%= at.title %></td>
+					        <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.rail %>"><script> bool(<%= at.rail %>,<%= $id %>)</script></td>
+					        <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.box %>"><script>bool(<%= at.box %>,<%= $id%>)</script></td>
+         					<td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.table_top %>"><script>bool(<%= at.table_top %>,<%= $id%>)</script></td>
+				            <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.trees %>"><script>bool(<%= at.trees %>,<%= $id%>)</script></td>
+				            <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.park_bench_picnic_table %>"><script>bool(<%= at.park_bench_picnic_table %>,<%= $id%>)</script></td>
+				            <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.mail_box %>"><script>bool(<%= at.mail_box %>,<%= $id%>)</script></td>
+				            <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.wall_ride %>"><script>bool(<%= at.wall_ride %>,<%= $id%>)</script></td>
+				            <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.barrels %>"><script>bool(<%= at.barrels %>,<%= $id%>)</script></td>
+				            <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.rainbow %>"><script>bool(<%= at.rainbow %>,<%= $id%>)</script></td>
+			            </tr>
+			        <%end%>
+			   <%end%>
+			</table>			
+			<h4>Jumps Features</h4>
+			<table>
+				<tr>
+					<td>Resort</td>
+					<td>Tabletop:</td>
+					<td>Step down:</td>
+					<td>Step up:</td>
+					<td>Gap:</td>
+					<td>Hip:</td>
+					<td>Spine:</td>
+					<td>Super kicker:</td>
+					<td>Mini kicker:</td>
+					<td>Channel gap:</td>
+				</tr>
+				<% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+		                <tr>
+			                <td><%= at.title%></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.tabletop %>"><script>bool(<%= at.tabletop %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.step_down %>"><script>bool(<%= at.step_down %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.step_up %>"><script>bool(<%= at.step_up %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.gap %>"><script>bool(<%= at.gap %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.hip %>"><script>bool(<%= at.hip %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.spine %>"><script>bool<%= at.spine %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.super_kicker %>"><script>bool(<%= at.super_kicker %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.mini_kicker %>"><script>bool(<%= at.mini_kicker %>,<%= $id%>)</script></td>
+			                <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.channel_gap %>"><script>bool(<%= at.channel_gap %>,<%= $id%>)</script></td>
+			           </tr>
+                <%end%>
+            <%end%>
+			</table>
+			<h4>Vertical Features</h4>
+			<table>
+				<tr>
+					<td>Resort</td>
+					<td>Half pipe:</td>
+					<td>Quater pipe:</td>
+				</tr>
+				<% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+				        <tr>
+				            <td><%= at.title%>
+					        <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.half_pipe %>"><script>bool(<%= at.half_pipe %>,<%= $id%>)</script></td>
+					        <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.quater_pipe %>"><script>bool(<%= at.quater_pipe %>,<%= $id%>)</script></td>
+				        </tr>
+			        <%end%>
+		        <%end%>
+			</table>
+			<h4>Other Features</h4>
+			<table>
+				<tr>
+					<td>Resort</td>
+					<td>Air bag:</td>
+				</tr>
+				<% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+				        <tr>
+					        <td><%= at.title%></td>
+					        <td id="<%=$id+=1%>" class="plaster_font bool big_font_weight_for_plaster" status="<%= at.air_bag %>"><script>bool(<%= at.air_bag %>,<%= $id%>)</script></td>
+				        </tr>
+			        <%end%>
+		        <%end%>
+			</table>
+		</li>
+		<li id="compliftTab">
+			<h2>Lifts Information</h2>
+			<table>
+			    <tr>
+			        <td>Resort</td>
+			        <td>Lifts:</td>
+			        <td>Open lifts:</td>
+			        <td>Close lifts:</td>
+			        <td>Open lift time:</td>
+			        <td>Close lift time:</td>
+		        </tr>
+	            <% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+                        <tr>
+                            <td><%= at.title%></td>
+                            <td><%= at.lifts %></td>
+                            <td><%= at.open_lifts%></td>
+                            <td><%= at.close_lifts %></td>
+                            <!-- SkiMap.org has good big maps. Use the pic when user click !  -->
+                            
+                            <td><%= at.open_lift_time.to_s(:time) %></td>
+                            <td><%= at.close_lift_time.to_s(:time) %></td>
+                        </tr>
+                    <%end%>
+                <%end%> 
+            </table>
+            
+		</li>
+		<li id="comppriceTab">
+			<h2>Lift Tickets</h2>
+			<h4>Day Ticket</h4>
+			<table>
+		        <tr>
+			        <td>Resort</td>
+			        <td>Adult</td>
+			        <td>Adult Holiday</td>
+			        <td>Teen</td>
+			        <td>Teen Holiday</td>
+			        <td>Child</td>
+			        <td>Child Holiday</td>
+		        </tr>
+		        <% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+                        <tr>
+                            <td><%= at.title %></td>
+                            <td>$ <%= at.day_ticket_adult %></td>
+                            <td>$ <%= at.day_ticket_adult_hr %></td>
+                            <td>$ <%= at.day_ticket_teen %></td>
+                            <td>$ <%= at.day_ticket_teen_hr %></td>
+                            <td>$ <%= at.day_ticket_child %></td>
+                            <td>$ <%= at.day_ticket_child_hr %></td>
+                        </tr>
+                    <%end%>
+                <%end%>
+            </table>
+            <h4>Night Ticket</h4>
+			<table>
+		        <tr>
+			        <td>Resort</td>
+			        <td>Adult</td>
+			        <td>Adult Holiday</td>
+			        <td>Teen</td>
+			        <td>Teen Holiday</td>
+			        <td>Child</td>
+			        <td>Child Holiday</td>
+		        </tr>
+		        <% @places.each do |at|%>
+                    <%if at.categories == "resort"%>
+                        <tr>
+                            <td>$ <%= at.title %></td>
+                            <td>$ <%= at.night_ticket_adult %></td>
+                            <td>$ <%= at.night_ticket_adult_hr %></td>
+                            <td>$ <%= at.night_ticket_teen %></td>
+                            <td>$ <%= at.night_ticket_teen_hr %></td>
+                            <td>$ <%= at.night_ticket_child %></td>
+                            <td>$ <%= at.night_ticket_child_hr %></td>
+                        </tr>
+                    <%end%>
+                <%end%>
+            </table>
+		</li>
+		<li id="">
+		    Looking for Weather API ...
+		</li>
+	</ul>
+	  
+</div>

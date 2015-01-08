@@ -1,0 +1,37 @@
+
+<%= form_for(@meetup_rsvp) do |f| %>
+  <% if @meetup_rsvp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meetup_rsvp.errors.count, "error") %> prohibited this meetup_rsvp from being saved:</h2>
+			
+      <ul>
+      <% @meetup_rsvp.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  event id : <%= params[:event_id]%>
+  user id : <%= current_user.id%>
+	<div class="field">
+	<!-- radio button option  -->
+	Your RSVP<br />
+		<%= radio_button_tag(:rsvp,'true') %>
+		<%= label_tag(:rsvp, "Attending !!") %>
+		<%= radio_button_tag(:rsvp,'false') %>
+		<%= label_tag(:rsvp, " Can't make it :( ") %>
+
+	<!-- radio button option end  -->
+	
+		<%= hidden_field_tag(:event_id,params[:event_id]) %>
+
+	</div>
+	
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

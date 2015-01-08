@@ -1,0 +1,78 @@
+// Place all the styles related to the microposts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#Profile{
+    min-height: 250px;
+    width: 50%;
+}
+#Profile img{
+    float:left;
+    margin-right: 1em; 
+}
+.microposts{
+		/*background-image: url('Sport_Extreme_descent_021290_.jpg');*/
+}
+.wrapper{
+	width:100%;
+}
+#user_info_wrapper{
+	min-width:400px;
+	min-height:500px;
+	/*margin:80px 10px 10px 10px;*/
+	float:left;
+}
+.microposts #contents{
+	/*width: 70%;*/
+	/*margin: 10px auto 10px auto;*/
+	padding: 20px;
+}
+#micropost_contents{
+	/*width:65%;
+	float:left;*/
+}
+/*Posting feild*/
+.posts{
+	padding: 0px 10px 0px 10px;
+	margin-bottom:10px;
+	background: #FFFFFF;
+	color:#000000;
+	border: 1px solid #000000;
+}
+.user{
+	background:#000000;
+	color:#ffffff;
+	padding-left:10px; 
+	margin-top:10px;
+	margin_bottom:0px;
+}
+p.contents{
+/*	margin: 0px;*/
+	/*padding-left:30px*/
+}
+
+/*User information feild*/
+#user_info_wrapper{
+	/*float: left;*/
+	/*width: 30%;*/
+	background:#ffffff;
+	border: 1px solid #000000;
+}
+#user_img{
+	width:150px;
+	height:150px;
+	margin:30px auto 10px auto;
+	border: 1px solid #000000;
+}
+#user_img img{
+	width:150px;
+	height:150px;
+}
+/***************************************************************************
+	Here is comment show 
+***************************************************************************/
+#comment{
+
+	 margin:5px 5px 5px 60px;
+	 padding:0px 10px 10px 10px ;
+
+}

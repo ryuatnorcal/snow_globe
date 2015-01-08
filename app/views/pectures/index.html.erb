@@ -1,0 +1,21 @@
+<h1>Listing pectures</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pectures.each do |pecture| %>
+  <tr>
+    <td><%= link_to 'Show', pecture %></td>
+    <td><%= link_to 'Edit', edit_pecture_path(pecture) %></td>
+    <td><%= link_to 'Destroy', pecture, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pecture', new_pecture_path %>
