@@ -1,0 +1,81 @@
+class CreatePlaces < ActiveRecord::Migration
+  def change
+    create_table :places do |t|
+      t.integer :place_id
+      t.string :address
+      t.float :latitude
+      t.float :longitude
+      t.string :categories
+      t.string :title
+      t.text :discription
+      t.integer :rate
+      t.string :url
+      t.datetime :open_hr
+      t.datetime :close_hr
+      t.boolean :sell
+      t.boolean :repaire
+      t.boolean :maintainance
+      t.integer :ave_snow_fall
+      t.integer :top_elevation
+      t.integer :base_elevation
+      t.integer :rideable_acres
+      t.integer :lifts
+      t.integer :open_lifts
+      t.integer :close_lifts
+      t.datetime :open_lift_time
+      t.datetime :close_lift_time
+      t.integer :trails
+      t.integer :longest_run
+      t.integer :terrain_beginner
+      t.integer :terrain_intermid
+      t.integer :terrain_advance
+      t.integer :terrain_expert
+      t.boolean :snowmaking
+      t.string :trail_map
+      t.integer :base_snow
+      t.integer :strome_total
+      t.boolean :terrain_park
+      t.integer :terrain_park_lv
+      t.boolean :rail
+      t.boolean :box
+      t.boolean :table_top
+      t.boolean :trees
+      t.boolean :park_bench_picnic_table
+      t.boolean :mail_box
+      t.boolean :wall_ride
+      t.boolean :barrels
+      t.boolean :rainbow
+      t.boolean :tabletop
+      t.boolean :step_down
+      t.boolean :step_up
+      t.boolean :gap
+      t.boolean :hip
+      t.boolean :spine
+      t.boolean :super_kicker
+      t.boolean :mini_kicker
+      t.boolean :channel_gap
+      t.boolean :half_pipe
+      t.boolean :quater_pipe
+      t.boolean :air_bag
+      t.integer :day_ticket_adult
+      t.integer :day_ticket_adult_hr
+      t.integer :night_ticket_adult
+      t.integer :night_ticket_adult_hr
+      t.integer :day_ticket_teen
+      t.integer :day_ticket_teen_hr
+      t.integer :night_ticket_teen
+      t.integer :night_ticket_teen_hr
+      t.integer :day_ticket_child
+      t.integer :day_ticket_child_hr
+      t.integer :night_ticket_child
+      t.integer :night_ticket_child_hr
+      t.datetime :holiday
+      t.text :note
+      t.boolean :wifi
+      t.string :cell
+      t.boolean :rental_gear
+
+      t.timestamps
+    end
+  end
+end

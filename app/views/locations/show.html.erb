@@ -1,0 +1,31 @@
+<div id="form_wrapper_email">
+<p id="notice"><%= notice %></p>
+ <b>Address:</b>
+  <h2><%= @location.address %></h2>
+</p>
+<p>
+	<%= image_tag @location.image_url(:show) if @location.image? %>
+</p>
+<p>
+ 
+<p>
+  <b>Latitude:</b>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @location.longitude %>
+</p>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}" %>
+
+<h3>Nearby locations</h3>
+<ul>
+<% for location in @location.nearbys(10) %>
+  <li><%= link_to location.address, location %> (<%= location.distance.round(2) %> miles)</li>
+<% end %>
+</ul>
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
+</div>

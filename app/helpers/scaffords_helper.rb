@@ -1,0 +1,2 @@
+module ScaffordsHelper
+end

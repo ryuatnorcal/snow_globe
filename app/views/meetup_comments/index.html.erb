@@ -1,0 +1,29 @@
+<h1>Listing meetup_comments</h1>
+
+<table>
+  <tr>
+    <th>Event</th>
+    <th>User</th>
+    <th>Username</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @meetup_comments.each do |meetup_comment| %>
+  <tr>
+    <td><%= meetup_comment.event_id %></td>
+    <td><%= meetup_comment.user_id %></td>
+    <td><%= meetup_comment.username %></td>
+    <td><%= meetup_comment.comment %></td>
+    <td><%= link_to 'Show', meetup_comment %></td>
+    <td><%= link_to 'Edit', edit_meetup_comment_path(meetup_comment) %></td>
+    <td><%= link_to 'Destroy', meetup_comment, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Meetup comment', new_meetup_comment_path %>

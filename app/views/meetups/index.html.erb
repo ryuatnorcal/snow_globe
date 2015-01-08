@@ -1,0 +1,179 @@
+<div class="row">
+    <div id="form_wrapper_email" class=" ten columns centered">
+    <h1>Trips</h1>
+    <%= link_to 'Create New Group Here ', new_meetup_profile_path %><br />
+    <%= form_tag meetups_path, :method => :get do %>
+      <p>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search Near", :name => nil %>
+      </p>
+    <% end %>
+    <dl class="tabs">
+        <dd class="active"><a href="#maps_view">Maps</a></dd>
+        <dd><a href="#lists_view">Trips</a></dd>
+        <dd><a href="#groups_view">Groups</a></dd>
+    </dl>
+    <ul class="tabs-content">
+    <!-- lists view -->
+        <li id="lists_viewTab">
+        <table>
+          <tr>
+            <th>Carpool Location </th>
+            <th>Date</th>
+            <th>Cost</th>
+            <th>Title</th>
+            <th>Organaizer name</th>
+            <th>Distination</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+
+        <% @meetups.each do |meetup| %>
+          <tr>
+            <td><%= meetup.address %></td>
+            <td><%= meetup.date.to_formatted_s(:long_ordinal) %></td>
+            <td><%= meetup.cost %></td>
+            <td><%= meetup.title %></td>
+            <td><%= meetup.organaizer_name %></td>
+            <td><%= meetup.distination %></td>
+            <td><%= link_to 'Detail', meetup %></td>
+            <%if current_user.id == 4%>
+            <td><%= link_to 'Edit', edit_meetup_path(meetup) %></td>
+            <td><%= link_to 'Delete', meetup, confirm: 'Are you sure?', method: :delete %></td>
+		        <%end%>   
+          </tr>
+          <%end%>
+        </table>
+    </li>
+    <li id="groups_viewTab">
+        <table>
+	  <tr>
+		<th>ID</th>
+		<th>Groupname</th>
+		<th>Group</th>
+		<th>Image</th>
+		<th>Trips</th>
+		<th>Members</th>
+		<th>Member names</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+
+	<% MeetupProfile.find(:all).each do |meetup_profile| %>
+	  <tr>
+		<td><%= meetup_profile.id %></td>
+		<td><%= meetup_profile.groupname %></td>
+		<td><%= meetup_profile.group_id %></td>
+		<td><%= image_tag meetup_profile.image_url(:prof) if meetup_profile.image? %></td>
+		
+		<td><%= meetup_profile.members %></td>
+		<td><%= meetup_profile.member_names %></td>
+		<td><%= link_to 'Detail', meetup_profile %></td>
+		<%if current_user.id == 4%>
+		    <td><%= link_to 'Edit', edit_meetup_profile_path(meetup_profile) %></td>
+		    <td><%= link_to 'Delete', meetup_profile, confirm: 'Are you sure?', method: :delete %></td>
+	    <%end%>
+	  </tr>
+	<% end %>
+	</table>
+    </li>
+    <li id="maps_viewTab" class="active">
+        <div class="row">
+            <div class="ten columns centered">
+                <h5>Sorry ....Maps view is underconstraction </h5>
+            </div>
+            
+        <% Profile.where(:user_id=>current_user.id).each do |user|%>
+            <script type="text/javascript">
+                var gmap;
+                // custom pin 
+                
+       /**********************************************************************
+        [Fixme]
+            get to know how to change  the color of icon on google maps 
+            so that you can show different type of icon to users
+       
+       ***********************************************************************/
+       /*        var pinColor = "0000FF";
+               var pinImageBlue = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                new google.maps.Size(21, 34),
+                new google.maps.Point(0,0),
+                new google.maps.Point(10, 34));*/
+                
+               $(document).ready(function(){
+                // map center 
+                  gmap = new GMaps({
+                    div: '#map_canvas',
+                    lat: '<%= user.latitude %>',
+                    lng: '<%= user.longitude %>'
+                  });
+                       
+                  
+                  gmap.addMarker({
+                      lat: '<%= user.latitude %>',
+                      lng: '<%= user.longitude %>',
+                      title: '<%= user.userName %>',
+                        
+                      infoWindow: {
+                        content: '<p>Your registrated area is <%= user.zip %></p> '
+                      }
+                    });
+            <%end%>
+                <% @meetups.each do |meetup| %>
+                //store or so on 
+                    gmap.addMarker({
+                    
+                      lat: '<%= meetup.latitude %>',
+                      lng: '<%= meetup.longitude %>',
+                      title: '<%= meetup.title %>',
+                      
+                      infoWindow: {
+                        content: '<table><tr>'+
+                                    '<th>Carpool Location </th>'+
+                                    '<th>Date</th>'+
+                                    '<th>Cost</th>'+
+                                    '<th>Title</th>'+
+                                    '<th>Organaizer name</th>'+
+                                    '<th>Distination</th>'+
+                                    '<th></th>'+
+                                    '<th></th>'+
+                                    '<th></th>'+
+                                  '</tr><tr>'+
+                                    '<td><%= meetup.address %></td>'+
+                                    '<td><%= meetup.date.to_formatted_s(:long_ordinal) %></td>'+
+                                    '<td><%= meetup.cost %></td>'+
+                                    '<td><%= meetup.title %></td>'+
+                                    '<td><%= meetup.organaizer_name %></td>'+
+                                    '<td><%= meetup.distination %></td>'+
+                                    '<td><%= link_to "Detail", meetup %></td>'+  
+                                    '</tr></table>'
+                      }
+                      
+                    });
+
+                    <%end%>
+                    <% MeetupProfile.find(:all).each do |group| %>
+                    gmap.addMarker({
+                    
+                      lat: '<%= group.latitude %>',
+                      lng: '<%= group.longitude %>',
+                      title: '<%= group.groupname %>',
+                      
+                      infoWindow: {
+                        content: 'Group :<%=link_to group.groupname, meetup_profile_path(:id=>group.id)%>'+
+                                 '<%= image_tag group.image_url(:thumb) if group.image? %>'
+                      }
+                     });
+                    <%end%>
+                });
+            </script>    
+            <div id="map_canvas" style="width:750px; height:500px"></div>
+          
+        </div>
+    </li>
+    <br />
+
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- *************************************************************************
+    Following webpage may helps a lot 
+    http://www.liftopia.com/
+****************************************************************************-->
+
+<div class="wrapper">        
+    <% @user = Profile.find(:first,:conditions=>["user_id=?",current_user.id])%>
+        <% Place.near(@user.zip,60000, :order => :distance).each do |place|%>
+        <%if place.categories=="resort"%>
+        <div class="flex-cube rounded-corner white-bk">
+            <h5 class="black_bk white_font tenpx-padding fivepx-margin"><%= place.title%></h5>
+            <div><%= image_tag place.image_url(:thumb) if place.image? %></div>
+            <div>
+                <%= place.distance.round(2) %> miles away from you.<br />
+                Do they have parks ?  : <%= place.terrain_park%><br />
+                Lift will open at <%= place.open_lifts%><br />
+            </div>
+            <div>
+                <spam class="button small"><%= link_to "Detail",place%></spam>
+                <spam class="button small"><%= link_to "Buy", place.ticket_url,:target=>'blank'%></spam>
+            </div>
+        </div>
+        <%end%>
+    <%end%>
+</div>
+
+

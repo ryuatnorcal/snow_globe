@@ -1,0 +1,9 @@
+<div id="form_wrapper_email">
+<h1>Editing profile</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back to dashboard', dashboard_path %> | 
+<%= link_to 'Edit Login Information', edit_user_registration_path%> | 
+<%= link_to 'Edit Profile', edit_profile_path(current_user.id)%>
+</div>

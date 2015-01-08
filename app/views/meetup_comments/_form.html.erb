@@ -1,0 +1,23 @@
+<%= form_for(@meetup_comment) do |f| %>
+  <% if @meetup_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meetup_comment.errors.count, "error") %> prohibited this meetup_comment from being saved:</h2>
+
+      <ul>
+      <% @meetup_comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  Event_id : 
+
+	<%= hidden_field_tag(:event_id,@meetup.event_id) %>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

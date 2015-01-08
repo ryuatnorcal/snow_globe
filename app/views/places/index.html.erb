@@ -1,0 +1,152 @@
+<div id="form_wrapper_email">
+<h1>Listing places</h1>
+    <div class="row">
+        <div class="eight columns">
+            <dl class="tabs">
+                <dd class="active"><a href="#map">Map</a></dd>
+                <dd><a href="#resort">Resorts</a></dd>
+                <dd><a href="#store">Store</a></dd>
+                <dd><a href="#street">Street</a></dd>
+            </dl>
+            <ul class="tabs-content">
+                <li id="mapTab" class="active">
+                    sorry map view is under constructing 
+                    <% Profile.where(:user_id=>current_user.id).each do |user|%>
+                    <script type="text/javascript">
+                     $(document).ready(function(){
+                // map center 
+                  gmap = new GMaps({
+                    div: '#map_canvas',
+                    lat: '<%= user.latitude %>',
+                    lng: '<%= user.longitude %>'
+                  });
+                       
+                  GMaps.geolocate({
+                      success: function(position) {
+                        map.setCenter(position.coords.latitude, position.coords.longitude);
+                      },
+                      error: function(error) {
+                        alert('Geolocation failed: '+error.message);
+                      },
+                      not_supported: function() {
+                        alert("Your browser does not support geolocation");
+                      },
+                      always: function() {
+                        alert("Done!");
+                      }
+                    });
+                    <%@places.each do |place|%>
+                        <%if place.categories == "resort"%>
+                      gmap.addMarker({
+                          lat: '<%= place.latitude %>',
+                          lng: '<%= place.longitude %>',
+                          title: '<%= place.title %>',
+                          color : 'blue',
+                          infoWindow: {
+                            content: '<p><%= place.title %></p> '
+                          }
+                        });
+                        <%end%>
+                        <%if place.categories == "store"%>
+                        gmap.addMarker({
+                          lat: '<%= place.latitude %>',
+                          lng: '<%= place.longitude %>',
+                          title: '<%= place.title %>',
+                          color : 'green',
+                          infoWindow: {
+                            content: '<p><%= place.title %></p> '
+                          }
+                        });
+                        <%end%>
+                        <%if place.categories == "street"%>
+                        gmap.addMarker({
+                          lat: '<%= place.latitude %>',
+                          lng: '<%= place.longitude %>',
+                          title: '<%= place.title %>',
+                          color : 'yellow',
+                          infoWindow: {
+                            content: '<p><%= place.title %></p> '
+                          }
+                        });
+                        <%end%>
+                    <%end%>
+                    });
+                    </script>
+                    <%end%>
+                 <div id="map_canvas" style="width:750px; height:500px"></div>
+                </li>
+                <li id="resortTab">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Resort</th>
+                            <th>Distance</th>
+                            <th>Park</th>
+                            <th>Open Lifts</th>
+                            <th></th>
+                        </tr>
+                        
+                        <% @user = Profile.find(:first,:conditions=>["user_id=?",current_user.id])%>
+		                    <% Place.near(@user.zip,60000, :order => :distance).each do |place|%>
+		                    <%if place.categories=="resort"%>
+	                    <tr>
+                            <td><%= image_tag place.image_url(:thumb) if place.image? %></td>
+                            <td><%= place.title%></td>
+                            <td><%= place.distance.round(2) %> miles</td>
+                            <td><%= place.terrain_park%></td>
+                            <td><%= place.open_lifts%></td>
+                            <td><%= link_to "Detail",place%></td>
+                        </tr>
+                            <%end%>
+                        <%end%>
+                    </table>
+                </li>
+                <li id="storeTab">
+                    <table>
+                            <tr>
+                                <th></th>
+                                <th>Store</th>
+                                <th>Distance</th>
+                                <th></th>
+                            </tr>
+                            
+                            <% @user = Profile.find(:first,:conditions=>["user_id=?",current_user.id])%>
+		                        <% Place.near(@user.zip,60000, :order => :distance).each do |place|%>
+		                        <%if place.categories=="store"%>
+	                        <tr>
+                                <td><%= image_tag place.image_url(:thumb) if place.image? %></td>
+                                <td><%= place.title%></td>
+                                <td><%= place.distance.round(2) %> miles</td>
+                                <td><%= link_to "Detail",place%></td>
+                            </tr>
+                                <%end%>
+                            <%end%>
+                        </table>
+                </li>
+                <li id="streetTab">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Spot</th>
+                            <th>Distance</th>
+                            <th></th>
+                        </tr>
+                        
+                        <% @user = Profile.find(:first,:conditions=>["user_id=?",current_user.id])%>
+		                    <% Place.near(@user.zip,60000, :order => :distance).each do |place|%>
+		                    <%if place.categories=="street"%>
+	                    <tr>
+                            <td><%= image_tag place.image_url(:thumb) if place.image? %></td>
+                            <td><%= place.title%></td>
+                            <td><%= place.distance.round(2) %> miles</td>
+                            <td><%= link_to "Detail",place%></td>
+                        </tr>
+                            <%end%>
+                        <%end%>
+                    </table>
+                </li>    
+            </ul>
+        </div>
+    </div>
+<%= link_to 'New Place', new_place_path %>
+</div>

@@ -1,0 +1,42 @@
+<div id="form_wrapper_email">
+	<h1>Listing meetup_profiles</h1>
+	<%= link_to "Event Lists ",meetups_path %>
+	<%= form_tag meetup_profiles_path, :method => :get do %>
+  	<p>
+   		<%= text_field_tag :search, params[:search] %>
+    	<%= submit_tag "Search Near", :name => nil %>
+	<% end %>	
+	<table>
+	  <tr>
+		<th>ID</th>
+		<th>Groupname</th>
+		<th>Group</th>
+		<th>Image</th>
+		<th>Trips</th>
+		<th>Members</th>
+		<th>Member names</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+
+	<% @meetup_profiles.each do |meetup_profile| %>
+	  <tr>
+		<td><%= meetup_profile.id %></td>
+		<td><%= meetup_profile.groupname %></td>
+		<td><%= meetup_profile.group_id %></td>
+		<td><%= image_tag meetup_profile.image_url(:prof) if meetup_profile.image? %></td>
+		
+		<td><%= meetup_profile.members %></td>
+		<td><%= meetup_profile.member_names %></td>
+		<td><%= link_to 'Show', meetup_profile %></td>
+		<td><%= link_to 'Edit', edit_meetup_profile_path(meetup_profile) %></td>
+		<td><%= link_to 'Destroy', meetup_profile, confirm: 'Are you sure?', method: :delete %></td>
+	  </tr>
+	<% end %>
+	</table>
+
+	<br />
+
+	<%= link_to 'New Meetup profile', new_meetup_profile_path %>
+</div>

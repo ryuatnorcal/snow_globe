@@ -1,0 +1,18 @@
+<div id="form_wrapper_email">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+		<b>Name:</b>
+		<%= @picture.name %>
+	</p>
+	<%= image_tag @picture.image_url(:show) if @picture.image? %><br />
+	<p>
+		Upload User : <%= @picture.username %><br />
+		User ID : <%= @picture.user_id %><br />
+		
+	</p>
+	<%= link_to 'Edit', edit_picture_path(@picture) %> |
+	<%= link_to 'Back', pictures_path %>
+
+
+</div>

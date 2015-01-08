@@ -1,0 +1,99 @@
+<!--
+*******************************************************************************
+[FixMe]
+    There is a problem. After the Jquery event, each rails link and form won't work.
+    The error is reposrted at 
+        http://stackoverflow.com/questions/14507554/jquery-event-kills-railss-link 
+
+******************************************************************************* -->
+<p id="notice"><%= notice %></p>
+
+<div class="wrapper">
+    <div id="Profile" class="flex-cube rounded-corner white-bk">
+    <h5 class="black_bk white_font tenpx-padding"><%= current_user.username%></h5>
+        <%= image_tag @user.image_url(:thumb) if @user.image? %>
+        <spam>
+            <p>
+                
+                DoB : <%= @user.birthday %><br />
+                
+                </p>
+                Following :<br />
+                    <% @Followings.each do |following|%>
+                        <%= link_to image_tag(following.image_url(:prof)), profile_path(following.id),{:title=>following.userName} if following.image?%>
+                    <%end%>
+                <br /><br/>
+                Followed :<br />
+                    <%@Followers.each do |follower|%>
+                        <%= link_to image_tag(follower.image_url(:prof)), profile_path(follower.id),{:title=>follower.userName} if follower.image?%>
+                    <%end%>        
+        </spam>
+    </div>
+    
+    <div class="flex-cube rounded-corner white-bk">
+        <div id="form"><%= render 'form' %></div>
+    </div>
+    <% @microposts.each do |post|%>
+        <div id="post-<%= post.id%>" class="flex-cube rounded-corner white-bk">
+            <h5 class="black_bk white_font tenpx-padding"><%= post.username %></h5>
+            <spam>                
+                <% if post.posts.length > 250 or post.image?%>
+                    <div class="short-<%=post.id%> active">
+                        <%= image_tag(post.image_url(:thumb)) if post.image?%>
+                        <%= post.posts.slice(0..250)%><br />
+                        <div class="button tiny"> Comment (<%= @count = Comment.where(:postID => post.id).count %>)</div>
+                        <div id="<%= post.id%>" class="readmore button tiny post-<%= post.id%>">[-- Read More --]</div>
+                    </div>
+                    <div class="long-<%=post.id%> inactive">
+                        <%= image_tag(post.image_url(:big)) if post.image?%>
+                        <%= post.posts%><br />
+                        <div id="<%= post.id%>" class="button tiny"> Comment (<%= @count = Comment.where(:postID => post.id).count %>)</div>
+                        <div class="return button tiny">Close</div>
+                          <!-- Here is a form for comment-->
+                            <%= form_for(@comment) do |f| %>
+                              <% if @comment.errors.any? %>
+                                <div id="error_explanation">
+                                  <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+                                  <ul>
+                                  <% @comment.errors.full_messages.each do |msg| %>
+                                    <li><%= msg %></li>
+                                  <% end %>
+                                  </ul>
+                                </div>
+                            <% end %>
+                            <%= f.hidden_field :postID, :value=>post.id%>
+                            <%= f.text_area :comment,:size =>"10X10" %>
+                          	<%= @comment.postID%>
+                          	<%= f.submit'post', :class=>'button small' %>
+                            <% end %>
+                        <!-- end of comment form  code -->
+                        <!-- -comment block -->
+                            <% if @count%>
+					            <% Comment.find(:all,:conditions=>{:postID => post.id},:order=>'date DESC').each do |comment|%>
+					            <div id="comment" class="posts">
+						            <p class="user"><%=link_to comment.username,profile_path(comment.user_id)%></p>
+						            <p class="contents"><%= comment.comment%></p>
+						            <% if comment.username == current_user.username %>
+							            <%= link_to 'Delete',comment, confirm: 'Are you sure?', method: :delete %>
+						            <% end %>
+					            </div>
+				                <%end%>
+			                <%end%>
+			            <!-- comment -->
+                        <!-- end of comment block -->
+                    
+                    
+                <% else %>
+                    <div class="short-<%=post.id%> active">
+                        <%= post.posts%><br />
+                        <div id="<%= post.id%>" class="button small"> Comment (<%= @count = Comment.where(:postID => post.id).count %>)</div>
+			    <% end %>
+                    </div>
+            </spam>
+        </div>
+    <%end%>
+    <div id="bk"></div>
+    <div id="post_area"><%=render 'form'%></div>
+
+
+

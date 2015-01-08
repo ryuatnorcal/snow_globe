@@ -1,0 +1,33 @@
+// Place all the styles related to the devise controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// Place all the styles related to the devise controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*.sessions, .registrations, .passwords,.profiles,.locations,.meetups,.meetup_comments,
+.meetup_rsvps,.pictures,.meetup_profiles,.microposts,.places,.messages{
+		background:#000000;
+		background-image: url('snowboarding-background-6-738583.jpg');
+		background-image: url('snow.jpg');
+		background-repeat: no-repeat;
+		background-position:fixed;
+}*/
+
+
+#form_wrapper_email{
+	background:#ffffff;
+	border-radius:15px;
+	/*width:50%;*/
+	padding:10px 10px 10px 100px;
+	/*margin-right: auto;
+	margin-left: auto;*/
+}
+#form_wrapper{
+	background:#ffffff;
+	border-radius:15px;
+	float:right;
+	position:  30px; 
+	padding:10px;
+	margin:30px 50px 10px 10px;
+}

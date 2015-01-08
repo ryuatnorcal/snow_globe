@@ -1,0 +1,45 @@
+<h1>Listing scaffords</h1>
+
+<table>
+  <tr>
+    <th>Meetup</th>
+    <th>Location</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Country</th>
+    <th>Date</th>
+    <th>Discription</th>
+    <th>Cost</th>
+    <th>Title</th>
+    <th>Organaizer</th>
+    <th>Organaizer name</th>
+    <th>Distination</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scaffords.each do |scafford| %>
+  <tr>
+    <td><%= scafford.meetup %></td>
+    <td><%= scafford.location %></td>
+    <td><%= scafford.city %></td>
+    <td><%= scafford.state %></td>
+    <td><%= scafford.country %></td>
+    <td><%= scafford.date %></td>
+    <td><%= scafford.discription %></td>
+    <td><%= scafford.cost %></td>
+    <td><%= scafford.title %></td>
+    <td><%= scafford.organaizer_id %></td>
+    <td><%= scafford.organaizer_name %></td>
+    <td><%= scafford.distination %></td>
+    <td><%= link_to 'Show', scafford %></td>
+    <td><%= link_to 'Edit', edit_scafford_path(scafford) %></td>
+    <td><%= link_to 'Destroy', scafford, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scafford', new_scafford_path %>

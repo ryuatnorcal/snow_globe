@@ -1,0 +1,72 @@
+<div id="form_wrapper_email" >
+<h1>Listing profiles</h1>
+
+<table>
+  <tr>
+  	<th>ID</th>
+    <th>User ID</th>
+    <th>Username</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Birthday</th>
+    <th>Introduce</th>
+
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @profiles.each do |profile| %>
+  <tr>
+  	<td><%= profile.id %></td>
+    <td><%= profile.user_id %></td>
+    <td><%= profile.userName%></td>
+    <td><%= profile.firstName %></td>
+    <td><%= profile.lastName %></td>
+    <td><%= profile.birthday %></td>
+    <td><%= profile.introduce %></td>
+	
+    <td><%= link_to 'Show', profile %></td>
+    <td><%= link_to 'Edit', edit_profile_path(profile.id) %></td>
+    <td><%= link_to 'Destroy', profile, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+Current user id : <%= current_user.id%>
+<br />
+
+<%if Profile.exists?(:id => current_user.id)%>
+	<%= link_to 'Edit', edit_profile_path(current_user.id) %>
+<%else%>
+	<%= link_to 'New Profile', new_profile_path %>
+<%end%>
+
+
+
+<h1>Friend list</h1>
+
+<table>
+  <tr>
+  	<th>ID</th>
+    <th>User ID</th>
+    <th>friend ID</th>
+		<th>Unfriend</th>
+
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @friendships.each do |friend| %>
+  <tr>
+  	<td><%= friend.id %></td> 
+    <td><%= friend.user_id %></td>
+    <td><%= friend.friend_id%></td>
+    
+    <td><%= link_to 'unfriend',unfriend_path(:id=>friend.id) ,confirm: 'Are you sure?', method: :unfriend %><td>
+
+  </tr>
+
+<% end %>
+</table>
+</div>

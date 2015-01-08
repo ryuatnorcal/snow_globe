@@ -1,0 +1,32 @@
+<div id="form_wrapper_email">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Event:</b>
+  <%= @meetup_rsvp.event_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @meetup_rsvp.user_id %>
+</p>
+
+<p>
+  <b>Rsvp:</b>
+  <%= @meetup_rsvp.rsvp %>
+</p>
+
+<p>
+  <b>Attend:</b>
+  <%= @meetup_rsvp.attend %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @meetup_rsvp.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_meetup_rsvp_path(@meetup_rsvp) %> |
+<%= link_to 'Back', meetup_rsvps_path %>
+</div>

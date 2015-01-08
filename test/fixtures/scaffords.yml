@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  meetup: MyString
+  location: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  date: 2012-06-17 09:22:39
+  discription: MyText
+  cost: 
+  title: MyText
+  organaizer_id: 1
+  organaizer_name: MyString
+  distination: 
+
+two:
+  meetup: MyString
+  location: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  date: 2012-06-17 09:22:39
+  discription: MyText
+  cost: 
+  title: MyText
+  organaizer_id: 1
+  organaizer_name: MyString
+  distination: 

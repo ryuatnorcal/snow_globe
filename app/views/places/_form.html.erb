@@ -1,0 +1,428 @@
+
+
+  <% if @place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+      <% @place.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <dl class="tabs">
+    <dd class="active"><a href="#resort">Resort</a></dd>
+    <dd><a href="#store">Store</a></dd>
+    <dd><a href="#street">Street Spot</a></dd>
+  </dl>
+  <ul class="tabs-content">
+    <li id="resortTab" class="active">
+    <%= form_for(@place) do |f| %>
+    <%= f.hidden_field(:categories,:value=>"resort") %>
+      <h3> File Snow Resort </h3> 
+      <table>
+        <tr>
+            <td><%= f.label :title %></td>
+            <td><%= f.text_field :title %></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><%=f.label :phone %></td>
+            <td><%=f.text_field :phone %></td>
+            <td><%=f.label :email %></td>
+            <td><%=f.text_field :email %></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :address %></td>
+            <td><%= f.text_field :address %></td>
+            <td><%= f.label :rate %></td>
+            <td><%= f.number_field :rate %></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :open_hr %></td>
+            <td><%= f.time_select :open_hr%></td>
+            <td><%= f.label :close_hr %></td>
+            <td><%= f.time_select :close_hr%></td>        
+        </tr>
+        <tr class="select">
+            <td><%= f.label :open_times_mon%></td>
+            <td><%= f.time_select :open_times_mon%></td>
+            <td><%= f.label :open_times_tue%></td>
+            <td><%= f.time_select :open_times_tue%></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :open_times_wed%></td>
+            <td><%= f.time_select :open_times_wed%></td>
+            <td><%= f.label :open_times_thu%></td>
+            <td><%= f.time_select :open_times_thu%></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :open_times_fri%></td>
+            <td><%= f.time_select :open_times_fri%></td>
+            <td><%= f.label :open_times_sat%></td>
+            <td><%= f.time_select :open_times_sat%></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :open_times_sun%></td>
+            <td><%= f.time_select :open_times_sun%></td>
+            <td><%= f.label :close_time_mon%></td>
+            <td><%= f.time_select :close_time_mon%></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :close_time_tue%></td>
+            <td><%= f.time_select :close_time_tue%></td>
+            <td><%= f.label :close_time_wed%></td>
+            <td><%= f.time_select :close_time_wed%></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :close_time_thu%></td>
+            <td><%= f.time_select :close_time_thu%></td>
+            <td><%= f.label :close_time_fri%></td>
+            <td><%= f.time_select :close_time_fri%></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :close_time_sat%></td>
+            <td><%= f.time_select :close_time_sat%></td>
+            <td><%= f.label :close_time_sun%></td>
+            <td><%= f.time_select :close_time_sun%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :url %></td>
+            <td><%= f.text_field :url %></td>
+            <td><%= f.label :discription %></td>
+            <td><%= f.text_area :discription %></td>
+        </tr>
+        <tr>
+            <td>Online Ticket URL</td>
+            <td><%= f.text_field :ticket_url%></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+            <td>iMage</td>
+            <td><%= f.file_field :image %></td>
+            <td><%= f.label :sell %></td>
+            <td><%= f.check_box :sell %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :maintainance %></td>
+            <td><%= f.check_box :maintainance %></td>
+            <td><%= f.label :repaire %></td>
+            <td><%= f.check_box :repaire %></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+            <td><%= f.label :ave_snow_fall %></td>
+            <td><%= f.number_field :ave_snow_fall %></td>
+            <td><%= f.label :top_elevation %></td>
+            <td><%= f.number_field :top_elevation %></td>    
+        </tr>
+        <tr>
+            <td><%= f.label :base_elevation %></td>
+            <td><%= f.number_field :base_elevation %></td>
+            <td><%= f.label :rideable_acres %></td>
+            <td><%= f.number_field :rideable_acres %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :lifts %></td>
+            <td><%= f.number_field :lifts %></td>
+            <td><%= f.label :open_lifts %></td>
+            <td><%= f.number_field :open_lifts %></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :close_lifts %></td>
+            <td><%= f.number_field :close_lifts %></td>
+            <td><%= f.label :open_lift_time %></td>
+            <td><%= f.time_select :open_lift_time %></td>
+        </tr>
+        <tr class="select">
+            <td><%= f.label :close_lift_time %></td>
+            <td><%= f.time_select :close_lift_time %></td>
+            <td><%= f.label :trails %></td>
+            <td><%= f.number_field :trails %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :longest_run %></td>
+            <td><%= f.number_field :longest_run %></td>
+            <td><%= f.label :terrain_beginner %></td>
+            <td><%= f.number_field :terrain_beginner %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :terrain_intermid %></td>
+            <td><%= f.number_field :terrain_intermid %></td>
+            <td><%= f.label :terrain_advance %></td>
+            <td><%= f.number_field :terrain_advance %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :terrain_expert %></td>
+            <td><%= f.number_field :terrain_expert %></td>
+            <td><%= f.label :snowmaking %></td>
+            <td><%= f.check_box :snowmaking %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :trail_map %></td>
+            <td><%= f.file_field :trail_map %></td>
+            <td><%= f.label :base_snow %></td>
+            <td><%= f.number_field :base_snow %></td>   
+        </tr>
+        <tr>
+            <td><%= f.label :strome_total %></td>
+            <td><%= f.number_field :strome_total %></td>    
+            <td><%= f.label :terrain_park %></td>
+            <td><%= f.check_box :terrain_park %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :terrain_park_lv %></td>
+            <td><%= f.number_field :terrain_park_lv %></td>
+            <td><%= f.label :rail %></td>
+            <td><%= f.check_box :rail %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :box %></td>
+            <td><%= f.check_box :box %></td>
+            <td><%= f.label :table_top %></td>
+            <td><%= f.check_box :table_top %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :trees %></td>
+            <td><%= f.check_box :trees %></td>
+            <td><%= f.label :park_bench_picnic_table %></td>
+            <td><%= f.check_box :park_bench_picnic_table %></td>
+        </tr>    
+        <tr>
+            <td><%= f.label :mail_box %></td>
+            <td><%= f.check_box :mail_box %></td>
+            <td><%= f.label :wall_ride %></td>
+            <td><%= f.check_box :wall_ride %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :barrels %></td>
+            <td><%= f.check_box :barrels %></td>
+            <td><%= f.label :rainbow %></td>
+            <td><%= f.check_box :rainbow %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :tabletop %></td>
+            <td><%= f.check_box :tabletop %></td>
+            <td><%= f.label :step_down %></td>
+            <td><%= f.check_box :step_down %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :step_up %></td>
+            <td><%= f.check_box :step_up %></td>
+            <td><%= f.label :gap %></td>
+            <td><%= f.check_box :gap %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :hip %></td>
+            <td><%= f.check_box :hip %></td>
+            <td><%= f.label :spine %></td>
+            <td><%= f.check_box :spine %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :super_kicker %></td>
+            <td><%= f.check_box :super_kicker %></td>
+            <td><%= f.label :mini_kicker %></td>
+            <td><%= f.check_box :mini_kicker %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :channel_gap %></td>
+            <td><%= f.check_box :channel_gap %></td>
+            <td><%= f.label :half_pipe %></td>
+            <td><%= f.check_box :half_pipe %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :quater_pipe %></td>
+            <td><%= f.check_box :quater_pipe %></td>
+            <td><%= f.label :air_bag %></td>
+            <td><%= f.check_box :air_bag %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :day_ticket_adult %></td>
+            <td><%= f.number_field :day_ticket_adult %></td>
+            <td><%= f.label :day_ticket_adult_hr %></td>
+            <td><%= f.number_field :day_ticket_adult_hr %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :night_ticket_adult %></td>
+            <td><%= f.number_field :night_ticket_adult %></td>
+            <td><%= f.label :night_ticket_adult_hr %></td>
+            <td><%= f.number_field :night_ticket_adult_hr %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :day_ticket_teen %></td>
+            <td><%= f.number_field :day_ticket_teen %></td>
+            <td><%= f.label :day_ticket_teen_hr %></td>
+            <td><%= f.number_field :day_ticket_teen_hr %></td>    
+        </tr>
+        <tr>
+            <td><%= f.label :night_ticket_teen %></td>
+            <td><%= f.number_field :night_ticket_teen %></td>
+            <td><%= f.label :night_ticket_teen_hr %></td>
+            <td><%= f.number_field :night_ticket_teen_hr %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :day_ticket_child %></td>
+            <td><%= f.number_field :day_ticket_child %></td>
+            <td><%= f.label :day_ticket_child_hr %></td>
+            <td><%= f.number_field :day_ticket_child_hr %></td>
+        </tr>  
+        <tr>
+            <td><%= f.label :night_ticket_child %></td>
+            <td><%= f.number_field :night_ticket_child %></td>
+            <td><%= f.label :night_ticket_child_hr %></td>
+            <td><%= f.number_field :night_ticket_child_hr %></td>
+        </tr> 
+        <tr class="select">
+            <td><%= f.label :holiday %></td>
+            <td><%= f.datetime_select :holiday %></td>
+            <td><%= f.label :note %></td>
+            <td><%= f.text_area :note %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :wifi %></td>
+            <td><%= f.check_box :wifi %></td>
+            <td><%= f.label :cell %></td>
+            <td><%= f.text_field :cell %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :rental_gear %></td>
+            <td><%= f.check_box :rental_gear %></td>
+            <td></td>
+            <td><%= f.submit 'submit a file!!' %></td>
+        </tr>
+      </table>
+      <%end%>
+    </li><!-- Resort end -->
+    <li id="storeTab">
+    <%= form_for(@place) do |f| %>
+    <%= f.hidden_field(:categories,:value=>"store") %>
+        <h3> File Local Stores </h3>
+        <table class="select">
+        <tr>
+            <td><%= f.label :title %></td>
+            <td><%= f.text_field :title %></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><%=f.label :phone %></td>
+            <td><%=f.text_field :phone %></td>
+            <td><%=f.label :email %></td>
+            <td><%=f.text_field :email %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :address %></td>
+            <td><%= f.text_field :address %></td>
+            <td><%= f.label :rate %></td>
+            <td><%= f.number_field :rate %></td>
+        </tr>
+         <tr>
+            <td><%= f.label :open_times_mon%></td>
+            <td><%= f.time_select :open_times_mon%></td>
+            <td><%= f.label :open_times_tue%></td>
+            <td><%= f.time_select :open_times_tue%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :open_times_wed%></td>
+            <td><%= f.time_select :open_times_wed%></td>
+            <td><%= f.label :open_times_thu%></td>
+            <td><%= f.time_select :open_times_thu%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :open_times_fri%></td>
+            <td><%= f.time_select :open_times_fri%></td>
+            <td><%= f.label :open_times_sat%></td>
+            <td><%= f.time_select :open_times_sat%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :open_times_sun%></td>
+            <td><%= f.time_select :open_times_sun%></td>
+            <td><%= f.label :close_time_mon%></td>
+            <td><%= f.time_select :close_time_mon%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :close_time_tue%></td>
+            <td><%= f.time_select :close_time_tue%></td>
+            <td><%= f.label :close_time_wed%></td>
+            <td><%= f.time_select :close_time_wed%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :close_time_thu%></td>
+            <td><%= f.time_select :close_time_thu%></td>
+            <td><%= f.label :close_time_fri%></td>
+            <td><%= f.time_select :close_time_fri%></td>
+        </tr>
+        <tr>
+            <td><%= f.label :close_time_sat%></td>
+            <td><%= f.time_select :close_time_sat%></td>
+            <td><%= f.label :close_time_sun%></td>
+            <td><%= f.time_select :close_time_sun%></td>
+        </tr>
+      </table>
+      <table class="select">
+        <tr>
+            <td>iMage</td>
+            <td><%= f.file_field :image %></td>
+            <td><%= f.label :sell %></td>
+            <td><%= f.check_box :sell %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :maintainance %></td>
+            <td><%= f.check_box :maintainance %></td>
+            <td><%= f.label :repaire %></td>
+            <td><%= f.check_box :repaire %></td>
+        </tr>
+      
+        <tr>
+            <td><%= f.label :holiday %></td>
+            <td><%= f.datetime_select :holiday %></td>
+            <td><%= f.label :note %></td>
+            <td><%= f.text_area :note %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :rental_gear %></td>
+            <td><%= f.check_box :rental_gear %></td>
+            <td></td>
+            <td><%= f.submit 'submit a file!!' %></td>
+        </tr>
+      </table>
+      <%end%>
+    </li><!-- Store end -->
+    <li id="streetTab">
+    <%= form_for(@place) do |f| %>
+    <%= f.hidden_field(:categories,:value=>"street") %>
+        <h3> File Street Spots </h3>
+        <table>
+        <tr>
+            <td><%= f.label :title %></td>
+            <td><%= f.text_field :title %></td>
+            <td>iMage</td>
+            <td><%= f.file_field :image %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :address %></td>
+            <td><%= f.text_field :address %></td>
+            <td><%= f.label :rate %></td>
+            <td><%= f.number_field :rate %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :url %></td>
+            <td><%= f.text_field :url %></td>
+            <td><%= f.label :discription %></td>
+            <td><%= f.text_area :discription %></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= f.submit 'submit a file!!' %></td>
+        </tr>
+      </table>
+      <%end%>
+    </li><!-- street end-->
+
+

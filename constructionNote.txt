@@ -1,0 +1,5 @@
+/******************************************************************************
+[FIXME]
+	comment will be created for each microposts.
+	you need to review the has_many process on the rail cast to create this type of thing 
+******************************************************************************/

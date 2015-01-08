@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  groupname: MyString
+  group_id: 1
+  image: MyString
+  trip_id: 1
+  members: 1
+  member_names: MyString
+
+two:
+  groupname: MyString
+  group_id: 1
+  image: MyString
+  trip_id: 1
+  members: 1
+  member_names: MyString

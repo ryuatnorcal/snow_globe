@@ -1,0 +1,8 @@
+<div id="form_wrapper_email">
+<h1>Editing meetup</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @meetup %> |
+<%= link_to 'Back', request.referer %>
+</div>

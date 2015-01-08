@@ -1,0 +1,132 @@
+<p id="notice"><%= notice %></p>
+<div id="form_wrapper_email">
+<% @already_friend = Friendship.where(:friend_id => @profile.user_id, :user_id => current_user.id)%>
+<% if @profile.user_id == current_user.id %>
+<!-- NOTHING SHOWS UP  -->
+<%else  if @already_friend.exists? %>
+	<% Friendship.find(:all,:conditions=>["friend_id=? AND user_id=?",@profile.user_id, current_user.id]).each do |friend|%>
+		<%= link_to 'Unfollow',unfriend_path(:id=>friend.id) ,confirm: 'Are you sure?', method: :unfriend %>
+	<%end%>	
+	<%else%>
+		<%= link_to "Follow", {:controller => "profiles",:action=>'create', :friend_id => @profile.id }, :method=>'post'%>
+	<% end %>
+<% end %>
+<div class="row">
+    <div class="twelve columns">
+        <h2><%= @profile.userName%></h2>
+        <% @style.each do |style|%>
+            <%= @style%>
+        <%end%>
+        <div class="row">
+            <div class="four columns">
+                <%= image_tag @profile.image_url(:thumb) if @profile.image? %>    
+            </div>
+            <div class="eight columns">
+                <dl class="tabs">
+                    <dd class="active"><a href="#base">Basic</a></dd>
+                    <dd><a href="#snow">Snowboard</a></dd>
+                    <dd><a href="#histories">Trip Histories</a></dd>
+                </dl>
+                <ul class="tabs-content">
+                    <li id="baseTab" class="active">
+                        <h3>Basic Information</h3>
+                        <table>
+                            <tr>
+                                <td>USER NAME</td>
+                                <td><%= @profile.userName%></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                <td>NAME</td>
+                                <td><%= @profile.firstName.capitalize%> <%= @profile.lastName.capitalize%></td>
+                                <td>B-day</td>
+                                <td><%= @profile.birthday %></td>
+                            </tr>
+                        </table>
+                        <h3>Introduce</h3>
+                        <p><%= @profile.introduce %></p>
+                        
+                    </li>
+                    <li id="snowTab">
+                        <h3>Border Information</h3>
+                        
+                        <table>
+                            <tr>
+                                <td>HOME TRAIL</td>
+                                <td><%= @profile.home_trail %></td>
+                                <td>SEASON PASS TRAILS</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <h4>Gears</h4>
+                        <!-- new type of thing  -->
+                        I am interested in .....
+                        <% @bland.each do |bland| %>
+                            <%= bland %> ,
+                        <%end%>
+                        
+                    </li>
+                    <li id="historiesTab">
+                        <h3>Trip Histories</h3>
+                            <b> Member of .... </b><br />
+                            <%= GroupMembership.find(:all,:conditions=>{:user_id=>current_user.id}).count%> groups</br >
+                            <% GroupMembership.where(:user_id=>current_user.id) do |a|%>
+                                <% MeetupProfile.find(:all,:conditions=>{:group_id=>a.group_id}) do |b|%>
+                                <%= link_to b.groupname,meetup_profile_path(a.id)%><br />
+                                <%end%>
+                            <%end%>
+                            <br />
+                            <b>Trips Profile Status </b><br /> 
+	                            <% @planned = MeetupRsvp.where(:user_id=> @profile.id).count%>
+	                            <% @attend = MeetupRsvp.where(:user_id=> @profile.id, :rsvp=> true).count%>
+	                            <% @not_show = MeetupRsvp.where(:user_id=> @profile.id, :rsvp=> false).count%>
+	                            Attendance Percentage : 
+		                            <%if @attend.to_i == 0 || @planned.to_i == 0 %>
+			                             User is new to groups
+		                            <% else %>
+			                            <%= (@attend.to_i / @planned.to_i)* 100 %> % 
+			                    <%end%>
+			                    <br />
+                                Planning : <%= @planned%><br />
+                                Attended : <%= @attend%><br />
+                                Not Show : <%= @not_show%><br />
+		                            <br /><br />
+
+	                            <b>Attended Trip: </b>
+	                            <table>
+		                            <tr>
+			                            <td>Group</td>
+			                            <td>Title</td>
+			                            <td>Date</td>
+			                            <td>Status</td>
+		                            </tr>
+		                            <% MeetupRsvp.find(:all, :conditions=>["user_id=? and rsvp=? ", @profile.id, true]).each do |f| %>
+			                            <% Meetup.find(:all,:conditions=>["id=?",f.event_id]).each do |event|%>
+				                            <!-- FINDING GROUP NAME -->
+				                            <% @event_prof = MeetupProfile.find(:first,:conditions=> ["trip_id=?",f.event_id])%>
+				                            <tr>
+					                            <td><%= event.id%></td>
+					                            <td><%=link_to event.title, meetup_path(event.id) %></td>
+					                            <td><%= event.date.to_date %></td>
+					                            <td>
+						                            <% if f.rsvp%> Attended <% else %> Absented<% end %>
+					                            </td>
+				                            </tr>
+			                            <%end%>
+		                            <%end%>
+		                            </table>
+                    </li>
+                </ul>
+            </div><!-- eight columns-->
+        </div><!-- inside row -->
+    </div><!-- twelve columns  -->
+</div><!-- row -->
+
+	
+</p>
+<%= link_to 'Back to Dashboard', root_path %> | 
+<% if current_user.id == @profile.id %>
+    <%= link_to 'Edit Profile',edit_profile_path(current_user.id)%> | 
+    <%= link_to 'Edit Login Information', edit_user_registration_path%>
+<%end%>
+</div>

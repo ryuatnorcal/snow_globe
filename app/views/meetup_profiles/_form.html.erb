@@ -1,0 +1,46 @@
+<div id="form_wrapper_email">
+<%= form_for(@meetup_profile) do |f| %>
+  <% if @meetup_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meetup_profile.errors.count, "error") %> prohibited this meetup_profile from being saved:</h2>
+
+      <ul>
+      <% @meetup_profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :groupname %><br />
+    <%= f.text_field :groupname %>
+  </div>
+	<div class="field">
+    <%= f.label :address %><br />
+	type the base area code here : 
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    
+    <%= f.hidden_field :group_id %>
+  </div>
+  <div class="field">
+    <p>
+  	  <%= f.file_field :image %>
+  	</p>
+		<p>
+  	  <%= f.label :remote_image_url, "or image URL" %><br />
+  	  <%= f.text_field :remote_image_url %>
+ 		</p>
+  </div>
+  <div class="field">
+    <%= f.label :discription %><br />
+    <%= f.text_area :discription %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

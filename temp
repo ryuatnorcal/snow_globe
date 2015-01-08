@@ -1,0 +1,149 @@
+#temp
+<!--
+	<div id="user_info_wrapper" class="three columns end">
+	    
+		<% Profile.find_by_id(current_user.id) do |person|%>
+		<div id="user_img">
+			<%= image_tag person.image_url(:thumb) if person.image? %>
+		</div><!-- end of user_img --
+		<div id="profile">
+		
+		Current user: <%= current_user.id%><br />
+		Current user return : <%= person.user_id%>
+			<table>
+				<tr>
+					<td>User ID : </td>
+					<td><%= current_user.id %></td>
+				</tr>
+				<tr>
+					<td>User : </td>
+					<td><%= current_user.username%></td>
+				</tr>
+				<tr>
+					<td>DoB : </td>
+					<td><%= person.birthday %></td>
+				</tr>
+			</table>
+				
+					Following :<br />
+					
+				<% Friendship.find(:all,:conditions => ["user_id = ?", current_user.id]).each do |friend| %>
+					<%Profile.find_by_id(friend.friend_id) do |following|%>
+					
+					<!--<% link_to following.userName, profile_path(following.id) %>--
+					<%= link_to image_tag(following.image_url(:prof)), profile_path(following.id),{:title=>following.userName} if following.image?%>
+					<%end%>
+				<%end%>
+				<br />
+				<br />
+				
+				
+				
+					Follower :<br />
+					<% Friendship.find(:all,:conditions => ["friend_id=?", current_user.id]).each do |friend| %>
+						<%Profile.find_by_id(friend.user_id) do |follower| %>
+						<!--<%= link_to follower.userName, profile_path(friend.user_id) %>--
+						<%= link_to image_tag(follower.image_url(:prof)), profile_path(follower.id),{:title=>follower.userName} if follower.image?%>
+						<% end %>
+					<%end%>
+				<br />
+				<br />				
+				<% if current_user.id == person.id %>
+					<%= link_to "Edit Profile", edit_profile_path(current_user.id)%>
+				<%end%>
+					<%= link_to "View Profile", profile_path(current_user.id) %>
+
+			<%end%><!-- end user --
+		</div><!-- -end of profile --
+	</div><!-- user_info_wrapper --
+	
+	<!--<div id="micropost_contents" >--
+	<div class="eight columns">
+	<div id="popup_contents" class="rounded-corner"><%= render 'form' %></div>
+	<% if user_signed_in?%>
+			<h1 class="plaster_font white_font">Everyone's posts !! </h1>
+			<div class="post_new plaster_font white_font">Post!!<!--<%= link_to 'Post', new_micropost_path %>--</div>
+		<%if @microposts.empty?%>
+		    <div class="posts">
+		        <p class="user">Welcome!!</p>
+		        <p class="contents">Ooops there is no posts....<br />
+		        Let's post what you feel !! 
+		        </p>
+		        <div class="post_new">Post!!<!--<%= link_to 'Post', new_micropost_path %>--</div>
+	        </div>
+		<%else%>
+		<dl class="tabs">
+          <dd class="active"><a href="#all">All Posts</a></dd>
+          <dd><a href="#follower">Follower Posts</a></dd>
+          <dd><a href="#followed">Followed Posts</a></dd>
+          <dd><a href="#test">All Temp</a></dd>
+        </dl>
+        
+        <ul class="tabs-content">
+            
+            <li class="active" id="allTab">
+                <% javascript :defaults, 'endless_page' %>
+                <div id="products">
+
+                </div>
+                <div class="post-set">   
+                    <%= render :partial => "posts"%>             
+                    <%= will_paginate @microposts %>
+	                <!-- <p id="loading">Loading more page results...</p> --
+                </div><!-- end of post-set --
+	        </li>
+	        <li id="followerTab">
+			<!--***** Here will be follower's microposts ***** --
+		
+				<div class="white_bk rounded-corner tenpx-padding">
+					Sorry.... Have no Friend now ..... <br />
+					<%= link_to "find new friends", find_path %><br />
+				</div>
+            </li>
+            <li id="testTab">
+            
+            
+							
+            </li>
+	    </ul>
+
+		<% if current_user.id == 55%>
+		********************** [ USERS POST REPORTS  ] **********************
+		<table>
+			<tr>
+				<th>Post ID</th>27
+				<th>User</th>
+				<th>Username</th>
+				<th>Posts</th>
+				<th>Post time </th>
+
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+			<!--SORT_BY ID : ID ORDER WITH 'REVERSE TO REVERSE THE ID ORDER => DESC ORDER BY ID'--
+			<% @microposts.sort_by(&:id).reverse.each do |micropost| %>	
+			<tr>
+				<td><%= micropost.id %></td>
+				<td><%= micropost.user_id %></td>
+				<td><%= micropost.username %></td>
+				<td><%= micropost.posts %></td>
+                <td><%= micropost.post_time%></td>
+
+				<td><%= link_to 'Show', micropost %></td>
+				<td><%= link_to 'Edit', edit_micropost_path(micropost) %></td>
+				<td><%= link_to 'Delete', micropost, confirm: 'Are you sure?', method: :delete %></td>
+			</tr>
+		<% end %>
+		</table>
+
+		<br />
+				********************** [ USERS POST REPORTS END ] **********************
+	</div>
+	<% end %><!-- here is end for the admin user information feld  -- 
+	</div>
+
+</div><!-- Wrapper end --
+
+<%end%>
+<%end%>

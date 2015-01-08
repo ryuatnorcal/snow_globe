@@ -1,0 +1,124 @@
+<div id="form_wrapper_email">
+<h1>Listing locations</h1>
+<%= form_tag locations_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search Near", :name => nil %>
+  </p>
+<% end %>
+<dl class="tabs">
+    <dd class="active"><a href="#all_maps">All</a></dd>
+    <dd><a href="#trail">Resort</a></dd>
+    <dd><a href="#street">Street</a></dd>
+    <dd><a href="#near">Near</a></dd>
+</dl>
+<ul class="tabs-content">
+    <li id="trailTab">
+        <b> Trail is under construction </b>
+    </li>
+    <li id="streetTab">
+        <b>Street spot is under construction </b>
+    </li>
+    <li id="nearTab">
+        <%if params.has_key?(:search)%>
+        <table>
+          <tr>
+            <th>Address</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+
+        <% @locations.each do |location| %>
+          <tr>
+            <td><%= location.address %></td>
+            <td><%= location.latitude %></td>
+            <td><%= location.longitude %></td>
+            <td><%= link_to 'Show', location %></td>
+            <%if current_user.id == 4%>
+            <td><%= link_to 'Edit', edit_location_path(location) %></td>
+            <td><%= link_to 'Destroy', location, confirm: 'Are you sure?', method: :delete %></td>
+            <%end%>
+          </tr>
+        <% end %>
+
+        </table>
+        <% else %>
+	        <h2>Location near you </h2>
+	        <table>
+          <tr>
+          	<th></th>
+            <th>Address</th>
+            <th>Distance</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+
+	        <% @user = Profile.find(:first,:conditions=>["user_id=?",current_user.id])%>
+		        <% Location.near(@user.zip,60000, :order => :distance).each do |location|%>
+		        <tr>
+			        <td>	<%= image_tag location.image_url(:thumb) if location.image? %></td>
+		          <td><%= location.address %></td>
+		          <td><%= location.distance.round(2) %> miles</td>
+		          <td><%= link_to 'Show', location %></td>
+		          <%if current_user.id == 4%>
+		          <td><%= link_to 'Edit', edit_location_path(location) %></td>
+		          <td><%= link_to 'Destroy', location, confirm: 'Are you sure?', method: :delete %></td>
+		          <%end%>
+		        </tr>
+	            <% end %>
+	        </table>
+	        <%= link_to 'New Location', new_location_path %>
+        <%end%>
+        <br />
+
+
+    </li>
+    <li id="all_mapsTab" class="active">
+
+    <% Profile.where(:user_id=>current_user.id).each do |user|%>      
+        <script type="text/javascript">
+        var gmap;
+        $(document).ready(function(){
+        // map center 
+          gmap = new GMaps({
+            div: '#map_canvas',
+            lat: '<%= user.latitude %>',
+            lng: '<%= user.longitude %>'
+          });
+               
+          
+          gmap.addMarker({
+              lat: '<%= user.latitude %>',
+              lng: '<%= user.longitude %>',
+              title: '<%= user.userName %>',
+                
+              infoWindow: {
+                content: '<p>Your registrated area is <%= user.zip %></p> '
+              }
+            });
+    <%end%>        
+    <% @locations.each do |spot| %>
+        gmap.addMarker({
+            lat: '<%= spot.latitude %>',
+            lng: '<%= spot.longitude %>',
+            title: '<%= spot.address%>',
+            
+            infoWindow: {
+                content: 'Address: <%= spot.address %>'+
+                         '<%= image_tag spot.image_url(:thumb) if spot.image? %>'+
+                         '<%= link_to "Detail", spot %>'
+            }
+        });
+    <%end%>
+       });   
+     
+        </script>
+        <div id="map_canvas" style="width:90%; height:500px"></div>
+    </li>
+
+</ul>
+</div>

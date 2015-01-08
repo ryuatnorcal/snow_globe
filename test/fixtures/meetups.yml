@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  location: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  date: 2012-06-17 09:26:11
+  discription: MyText
+  cost: 1
+  title: MyString
+  organaizer_id: 1
+  organaizer_name: MyString
+  distination: MyString
+
+two:
+  location: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  date: 2012-06-17 09:26:11
+  discription: MyText
+  cost: 1
+  title: MyString
+  organaizer_id: 1
+  organaizer_name: MyString
+  distination: MyString

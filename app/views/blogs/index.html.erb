@@ -1,0 +1,55 @@
+<% if user_signed_in? %>
+<h1>Listing blogs for <%= @UserEmail = current_user.email%></h1>
+<h2>User ID <%= current_user.id %></h2>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Article</th>
+    <th>Time</th>
+    <th>Id</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @blogs.each do |blog| %>
+  <tr>
+    <td><%= blog.title %></td>
+    <td><%= blog.article %></td>
+    <td><%= blog.time %></td>
+    <td><%= blog.id %></td>
+    <td><%= link_to 'Show', blog %></td>
+    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
+    <td><%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+<% else %>
+<h1>Listing blogs</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Article</th>
+    <th>Time</th>
+    <th>Id</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @blogs.each do |blog| %>
+  <tr>
+    <td><%= blog.title %></td>
+    <td><%= blog.article %></td>
+    <td><%= blog.time %></td>
+    <td><%= blog.id %></td>
+  </tr>
+<% end %>
+</table>
+<%end%>
+
+<br />
+
+<%= link_to 'New Blog', new_blog_path %>

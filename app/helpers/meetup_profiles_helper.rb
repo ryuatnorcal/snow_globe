@@ -1,0 +1,2 @@
+module MeetupProfilesHelper
+end

@@ -1,0 +1,4 @@
+page.insert_html :bottom, :post, :partial => "_posts"
+
+  page.call 'checkScroll'
+

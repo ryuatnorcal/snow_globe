@@ -1,0 +1,76 @@
+<% @microposts.find(:all,:order=>'post_time DESC',:limit=>1000).each do |micropost|%>
+            
+		    <div class="posts" id="microposts">
+		    <!-- 
+		        [FIXME]
+		            MAYBE YOU CAN FIX THE PROBLEM WITH USING MICROPOST ID CLASS 
+		    -->
+			    <div class="popup_contents_comments rounded-corner <%= micropost.id%>">
+			    <%= form_for(@comment) do |f| %>
+                  <% if @comment.errors.any? %>
+                    <div id="error_explanation">
+                      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+                      <ul>
+                      <% @comment.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                      <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                  post ID : <%= micropost.id%>
+                  <%= f.hidden_field :postID, :value=>micropost.id%>
+                  <div class="field">
+                    <%= f.label :comment %><br />
+                    <%= f.text_area :comment, :size => "30x15"%>
+                  </div>
+
+                  	<%= @comment.postID%>
+                  	<table>
+                  	    <tr>
+                            <td><%= f.submit %></td>
+                            <td class="close">Cancel</td>
+                        </tr>
+                    </table>
+                <% end %>
+			        
+			
+			    </div><!-- pop up comment-->    
+			    <p class="user"><%= micropost.id%> <%=link_to micropost.username,profile_path(micropost.user_id)%></p>
+			    <div class="contents">
+			    <div id="<%= micropost.id%>" class="picture"><center><%= image_tag(micropost.image_url(:thumb)) if micropost.image?%></center></div>
+			    <div class="pic-<%= micropost.id%> popup-picture ui-draggable ui-draggable-dragging"><div class="close" style="float:right;"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Ps-x-button.png/32px-Ps-x-button.png" style="top:-5px;" /></div><%= image_tag(micropost.image_url(:big)) if micropost.image?%></div>
+			    <p><%= micropost.posts %></p></div>
+			
+			    <table>
+				    <tr>
+				    <td id="<%=micropost.id%>" class="comment_new">Comment<!--<%= link_to 'Comment', {:controller => "comments", :action => "new", :postID => micropost.id }%>-->
+				    (<%= @count = Comment.where(:postID => micropost.id).count %>)
+				    </td>
+			    <% if micropost.user_id == current_user.id %>
+
+		    <!--	<td>	<%= link_to 'Post', new_micropost_path %></td>
+					    <td><%= link_to 'Edit', edit_micropost_path(micropost) %></td> -->
+					    <td><%= link_to 'Delete', micropost, confirm: 'Are you sure?', method: :delete %></td>
+			    <% end %>
+				    </tr>
+			    </table>
+			    <% if @count%>
+					    <% Comment.find(:all,:conditions=>{:postID => micropost.id},:order=>'date DESC').each do |comment|%>
+					    <div id="comment" class="posts">
+						    <p class="user"><%=link_to comment.username,profile_path(comment.user_id)%></p>
+						    <p class="contents"><%= comment.comment%></p>
+						    <% if comment.username == current_user.username %>
+							    <%= link_to 'Delete',comment, confirm: 'Are you sure?', method: :delete %>
+						    <% end %>
+					    </div><!-- comment -->
+					    <% end %>
+			    <% end %>
+
+			<!--[Fixme] This line doesn't pass the post ID -->
+			
+			
+		        <div id="window"></div>
+	        </div><!-- posts-->
+	        <%end%>
+
+
